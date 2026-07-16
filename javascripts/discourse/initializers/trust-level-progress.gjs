@@ -35,8 +35,14 @@ class PostTrustLevelTitle extends Component {
     const topicMetaData = element.closest(".topic-meta-data");
     const names = topicMetaData?.querySelector(":scope > .names");
 
-    if (names && names.nextElementSibling !== element) {
-      names.insertAdjacentElement("afterend", element);
+    if (!topicMetaData || !names) {
+      return;
+    }
+
+    // Make the title a direct child of topic-meta-data so the grid layout is
+    // identical on desktop and mobile.
+    if (element.parentElement !== topicMetaData) {
+      topicMetaData.insertBefore(element, topicMetaData.querySelector(":scope > .post-infos"));
     }
   }
 
