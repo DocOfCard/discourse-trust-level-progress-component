@@ -4,16 +4,16 @@ show_profile_progress:
   default: true
 trust_level_color_tl0:
   type: color
-  default: "#8c8c8c"
+  default: "#22c55e"
 trust_level_color_tl1:
   type: color
-  default: "#2fa84f"
+  default: "#3b82f6"
 trust_level_color_tl2:
   type: color
-  default: "#2f80ed"
+  default: "#8b5cf6"
 trust_level_color_tl3:
   type: color
-  default: "#d79b00"
+  default: "#d4a017"
 trust_level_color_tl4:
   type: color
-  default: "#8b5cf6"
+  default: "#ef4444"
