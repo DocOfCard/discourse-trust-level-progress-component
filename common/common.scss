@@ -201,6 +201,36 @@
 }
 
 @media (max-width: 700px) {
+
+  // Keep display name and username on the same line when space allows.
+  // When the combined width is too large, the username moves as a whole
+  // to the next line. The trust-level title is outside .names, so it is
+  // unaffected by this layout.
+  .topic-post .topic-meta-data > .names {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: baseline !important;
+    column-gap: 0.4em !important;
+    row-gap: 0 !important;
+    overflow: visible !important;
+  }
+
+  .topic-post .topic-meta-data > .names > .first,
+  .topic-post .topic-meta-data > .names > .second {
+    display: inline-flex !important;
+    flex: 0 0 auto !important;
+    max-width: 100% !important;
+    margin-right: 0 !important;
+    overflow: visible !important;
+    text-overflow: clip !important;
+    white-space: normal !important;
+  }
+
+  .topic-post .topic-meta-data > .names > .first > a,
+  .topic-post .topic-meta-data > .names > .second > a {
+    white-space: normal !important;
+    overflow-wrap: anywhere !important;
+  }
   .trust-level-progress {
     margin: 0.75rem 0;
     padding: 1rem 0.75rem;
