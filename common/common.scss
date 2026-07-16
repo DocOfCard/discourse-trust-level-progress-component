@@ -1,44 +1,36 @@
-// Post trust-level title uses Discourse's native .user-title element.
-// No DOM moves, observers, order overrides, or pixel offsets are used.
-.topic-post .names > .trust-level-poster ~ .user-title {
+// Native poster-name connector. Independent from .user-title theme styling.
+.topic-post .names .trust-level-title-on-post {
   display: inline-flex;
   align-items: center;
   gap: 0.32em;
+  margin-right: 0.33em;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
   line-height: inherit;
-  vertical-align: middle;
   white-space: nowrap;
+  font-weight: 600;
 }
 
-.topic-post .names > .trust-level-poster ~ .user-title::before {
-  content: "";
+.topic-post .names .trust-level-title-on-post__icon {
   display: block;
   width: 1.1em;
+  min-width: 1.1em;
+  max-width: 1.1em;
   height: 1.1em;
+  min-height: 1.1em;
+  max-height: 1.1em;
   flex: 0 0 1.1em;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
+  object-fit: contain;
 }
 
-.topic-post .names > .trust-level-poster--tl0 ~ .user-title::before {
-  background-image: url($badge_tl0);
-}
-
-.topic-post .names > .trust-level-poster--tl1 ~ .user-title::before {
-  background-image: url($badge_tl1);
-}
-
-.topic-post .names > .trust-level-poster--tl2 ~ .user-title::before {
-  background-image: url($badge_tl2);
-}
-
-.topic-post .names > .trust-level-poster--tl3 ~ .user-title::before {
-  background-image: url($badge_tl3);
-}
-
-.topic-post .names > .trust-level-poster--tl4 ~ .user-title::before {
-  background-image: url($badge_tl4);
-}
+.topic-post .names .trust-level-title-on-post--tl0 { color: var(--primary-medium); }
+.topic-post .names .trust-level-title-on-post--tl1 { color: var(--success); }
+.topic-post .names .trust-level-title-on-post--tl2 { color: var(--tertiary); }
+.topic-post .names .trust-level-title-on-post--tl3 { color: #8b5cf6; }
+.topic-post .names .trust-level-title-on-post--tl4 { color: #d79b00; }
 
 .trust-level-progress {
   box-sizing: border-box;
