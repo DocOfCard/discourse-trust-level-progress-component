@@ -1,4 +1,5 @@
 import Component from "@glimmer/component";
+import { and } from "discourse/truth-helpers";
 import { i18n } from "discourse-i18n";
 
 const TRUST_LEVEL_KEYS = ["newuser", "basic", "member", "regular", "leader"];
@@ -22,8 +23,14 @@ export default class TrustLevelTitle extends Component {
     return settings.theme_uploads?.[`badge_tl${this.level}`];
   }
 
+  get enabled() {
+    return settings.show_title_on_posts;
+  }
+
   <template>
-    {{#if this.title}}
+    {{yield}}
+
+    {{#if (and this.enabled this.title)}}
       <span
         class="trust-level-title-on-post trust-level-title-on-post--tl{{this.level}}"
       >
