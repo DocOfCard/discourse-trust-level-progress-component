@@ -1,4 +1,6 @@
 en:
+  theme_metadata:
+    description: "Displays official Discourse trust-level progress on the current user profile and trust-level titles beside post authors. Requires the companion Trust Level Progress API plugin for profile progress."
   trust_level_progress:
     current_level: "Current trust level"
     progress_to: "Progress toward %{level}"

@@ -1,4 +1,6 @@
 zh_CN:
+  theme_metadata:
+    description: "在当前用户资料页显示 Discourse 官方信任等级升级进度，并在帖子作者旁显示信任等级称号。资料页进度需要配套的 Trust Level Progress API 插件。"
   trust_level_progress:
     current_level: "当前信任级别"
     progress_to: "升级到 %{level} 的进度"

@@ -74,6 +74,7 @@ class PostTrustLevelTitle extends Component {
 
 class TrustLevelProgressCard extends Component {
   @service currentUser;
+  @service siteSettings;
   @tracked data;
   @tracked loading = false;
   @tracked unavailable = false;
@@ -85,25 +86,48 @@ class TrustLevelProgressCard extends Component {
 
     this.loading = true;
     try {
+      this.debug("request:start", { profileUser: this.profileUser?.username });
       this.data = await ajax("/trust-level-progress/progress.json");
-    } catch {
+      this.debug("request:success", {
+        pluginVersion: this.data?.plugin_version,
+        currentLevel: this.data?.current_level,
+        nextLevel: this.data?.next_level,
+      });
+    } catch (error) {
       // The backend plugin is optional. When its endpoint is unavailable or
       // access is denied, hide the component without exposing error details.
       this.unavailable = true;
+      this.debug("request:error", { status: error?.status });
     } finally {
       this.loading = false;
     }
   });
 
   get profileUser() {
-    return this.args.outletArgs?.model;
+    // renderInOutlet passes outlet arguments directly on modern Discourse.
+    // Keep the nested fallback for older releases and imported theme caches.
+    return (
+      this.args.model ??
+      this.args.user ??
+      this.args.outletArgs?.model ??
+      this.args.outletArgs?.user
+    );
+  }
+
+  debug(event, details = {}) {
+    if (this.siteSettings.trust_level_progress_debug_enabled) {
+      // eslint-disable-next-line no-console
+      console.debug(`[TrustLevelProgress] ${event}`, details);
+    }
   }
 
   get canDisplay() {
     return Boolean(
       this.currentUser &&
         this.profileUser &&
-        this.currentUser.username === this.profileUser.username
+        (this.currentUser.id === this.profileUser.id ||
+          this.currentUser.username_lower === this.profileUser.username_lower ||
+          this.currentUser.username === this.profileUser.username)
     );
   }
 
