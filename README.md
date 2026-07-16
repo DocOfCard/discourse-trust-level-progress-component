@@ -32,7 +32,7 @@ assets/badge-tl4.svg
 
 Each SVG should have a tightly cropped and consistent `viewBox`.
 
-## 3.1.2
+## 3.1.3
 
 - Added theme-component color settings for TL0-TL4 post titles.
 - TL3 defaults to gold; TL4 defaults to purple.
