@@ -1,8 +1,31 @@
-// Trust level title rendered below the native poster-name block.
-.topic-post .trust-level-title-on-post {
+// Keep Discourse poster names and post info on the first row, and render
+// the trust-level badge/title on a dedicated second row.
+.topic-post .topic-meta-data {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) auto !important;
+  grid-template-rows: auto auto !important;
+  align-items: start !important;
+  column-gap: 0.5rem !important;
+}
+
+.topic-post .topic-meta-data > .names {
+  grid-column: 1 !important;
+  grid-row: 1 !important;
+  min-width: 0 !important;
+}
+
+.topic-post .topic-meta-data > .post-infos {
+  grid-column: 2 !important;
+  grid-row: 1 !important;
+}
+
+.topic-post .topic-meta-data > .trust-level-title-on-post {
+  grid-column: 1 / -1 !important;
+  grid-row: 2 !important;
+  justify-self: start !important;
   display: inline-flex !important;
   align-items: center !important;
-  gap: 0.3em !important;
+  gap: 0.32em !important;
   width: auto !important;
   max-width: 100% !important;
   margin: 5px 0 0 !important;
@@ -14,16 +37,16 @@
   white-space: nowrap !important;
 }
 
-.topic-post img.trust-level-title-on-post__icon {
+.topic-post .trust-level-title-on-post__icon {
   display: block !important;
   box-sizing: border-box !important;
-  width: 1.2em !important;
-  min-width: 1.2em !important;
-  max-width: 1.2em !important;
-  height: 1.2em !important;
-  min-height: 1.2em !important;
-  max-height: 1.2em !important;
-  flex: 0 0 1.2em !important;
+  width: 1.1em !important;
+  min-width: 1.1em !important;
+  max-width: 1.1em !important;
+  height: 1.1em !important;
+  min-height: 1.1em !important;
+  max-height: 1.1em !important;
+  flex: 0 0 1.1em !important;
   margin: 0 !important;
   padding: 0 !important;
   object-fit: contain !important;
