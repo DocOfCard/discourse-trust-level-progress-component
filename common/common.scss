@@ -1,11 +1,51 @@
-.topic-post .topic-meta-data .names > .trust-level-title-on-post {
+// Post header layout: nickname, username, then trust level on its own row.
+.topic-post .topic-meta-data .names {
   display: flex !important;
+  flex: 1 1 auto !important;
+  flex-wrap: wrap !important;
+  align-items: baseline !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  overflow: visible !important;
+}
+
+.topic-post .topic-meta-data .names > .first {
+  order: 1 !important;
+  flex: 0 1 auto !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
+  white-space: normal !important;
+}
+
+.topic-post .topic-meta-data .names > .second {
+  order: 2 !important;
+  flex: 0 0 auto !important;
+  max-width: 100% !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
+  white-space: normal !important;
+}
+
+.topic-post .topic-meta-data .names > .first > a,
+.topic-post .topic-meta-data .names > .second > a {
+  max-width: 100% !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
+  white-space: normal !important;
+}
+
+.topic-post .topic-meta-data .names > .trust-level-title-on-post {
+  order: 3 !important;
+  display: flex !important;
+  flex: 0 0 100% !important;
   align-items: center !important;
   gap: 0.28em !important;
   width: 100% !important;
+  max-width: 100% !important;
   margin: 0.12em 0 0 !important;
   padding: 0 !important;
-  clear: both !important;
   color: var(--primary-medium) !important;
   font-size: var(--font-down-1) !important;
   font-weight: 500 !important;
@@ -15,15 +55,16 @@
   text-overflow: clip !important;
 }
 
+.topic-post .topic-meta-data .names > .trust-level-title-on-post__icon,
 .topic-post .topic-meta-data .names > .trust-level-title-on-post .trust-level-title-on-post__icon {
   display: block !important;
   width: 1.2em !important;
   height: 1.2em !important;
   min-width: 1.2em !important;
   flex: 0 0 1.2em !important;
-  object-fit: contain !important;
   margin: 0 !important;
   padding: 0 !important;
+  object-fit: contain !important;
 }
 
 .topic-post .topic-meta-data .names > .trust-level-title-on-post > span {
@@ -197,5 +238,6 @@
       min-width: 10rem;
     }
   }
+
 
 }
