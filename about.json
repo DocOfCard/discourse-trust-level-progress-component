@@ -1,10 +1,13 @@
 {
   "name": "Discourse Trust Level Progress Component",
-  "version": "1.2.3",
-  "author": "DocOfCard",
+  "component": true,
+  "authors": "DocOfCard",
+  "theme_version": "1.2.4",
+  "minimum_discourse_version": "3.3.0.beta1",
   "about_url": "https://github.com/DocOfCard/discourse-trust-level-progress-component",
   "license_url": "https://github.com/DocOfCard/discourse-trust-level-progress-component/blob/main/LICENSE",
-  "component": true,
+  "description": "Displays trust level titles on posts and shows the current user's official Discourse trust level progress on their profile when the companion API plugin is installed.",
+  "version": "1.2.4",
   "assets": {},
   "color_schemes": {}
 }
