@@ -32,9 +32,10 @@ class PostTrustLevelTitle extends Component {
 
   @action
   moveBelowPosterNames(element) {
-    const names = element.closest(".names");
+    const topicMetaData = element.closest(".topic-meta-data");
+    const names = topicMetaData?.querySelector(":scope > .names");
 
-    if (names && element.parentElement === names) {
+    if (names && names.nextElementSibling !== element) {
       names.insertAdjacentElement("afterend", element);
     }
   }
