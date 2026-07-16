@@ -1,24 +1,36 @@
-// Shared post trust-level title styles. Keep Discourse's native .names layout intact.
-.trust-level-title-on-post {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.28em;
-  margin: 0;
-  color: var(--primary-medium);
-  font-size: var(--font-down-1);
-  font-weight: 500;
-  line-height: 1;
-  white-space: nowrap;
-  vertical-align: middle;
+.topic-post .topic-meta-data .names > .trust-level-title-on-post {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.28em !important;
+  width: 100% !important;
+  margin: 0.12em 0 0 !important;
+  padding: 0 !important;
+  clear: both !important;
+  color: var(--primary-medium) !important;
+  font-size: var(--font-down-1) !important;
+  font-weight: 500 !important;
+  line-height: 1.25 !important;
+  white-space: nowrap !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
 }
 
-.trust-level-title-on-post__icon {
-  display: block;
-  width: 1.2em;
-  height: 1.2em;
-  flex: 0 0 auto;
-  object-fit: contain;
-  transform: translateY(-0.02em);
+.topic-post .topic-meta-data .names > .trust-level-title-on-post .trust-level-title-on-post__icon {
+  display: block !important;
+  width: 1.2em !important;
+  height: 1.2em !important;
+  min-width: 1.2em !important;
+  flex: 0 0 1.2em !important;
+  object-fit: contain !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.topic-post .topic-meta-data .names > .trust-level-title-on-post > span {
+  display: block !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  white-space: nowrap !important;
 }
 
 .trust-level-progress {
@@ -167,4 +179,23 @@
 
 .user-nav__trust-level .d-icon {
   color: var(--primary-medium);
+}
+
+@media (max-width: 700px) {
+  .trust-level-progress {
+    margin: 0.75rem 0;
+    padding: 1rem 0.75rem;
+  }
+
+  .trust-level-progress__table {
+    th,
+    td {
+      padding: 0.65rem 0.4rem;
+    }
+
+    tbody th {
+      min-width: 10rem;
+    }
+  }
+
 }
