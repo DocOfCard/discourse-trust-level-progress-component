@@ -29,7 +29,3 @@ Replace the five placeholder files in `assets/` with the real badge artwork. Kee
 - `assets/badge-tl4.svg`
 
 The component automatically displays the matching SVG before trust-level names on the profile progress page and beside post-author trust-level titles.
-
-## 2.4.1
-
-- Aligns display name, username, and trust-level title using a shared centered flex line while preserving grouped wrapping.
