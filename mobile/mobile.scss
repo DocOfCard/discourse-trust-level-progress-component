@@ -1,1 +1,42 @@
+// Mobile post header layout.
+// Preserve complete text and move the trust-level title to the next line as one
+// unit when necessary. Do not reserve a separate empty column.
+.topic-post .topic-meta-data .names {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+  column-gap: 0.28em;
+  row-gap: 0.08em;
+  min-width: 0;
+}
 
+.topic-post .topic-meta-data .names > span {
+  margin-inline-end: 0;
+}
+
+.topic-post .topic-meta-data .names .first,
+.topic-post .topic-meta-data .names .trust-level-title-on-post {
+  flex: 0 0 auto;
+  max-width: 100%;
+}
+
+.topic-post .topic-meta-data .names .first > a {
+  white-space: nowrap;
+}
+
+.trust-level-progress {
+  margin: 0.75rem 0;
+  padding: 1rem 0.75rem;
+}
+
+.trust-level-progress__table {
+  th,
+  td {
+    padding: 0.65rem 0.4rem;
+  }
+
+  tbody th {
+    min-width: 10rem;
+  }
+}
