@@ -1,6 +1,6 @@
 # Discourse Trust Level Progress Component
 
-Version 3.2.2
+Version 3.2.3
 
 This theme component:
 
@@ -47,3 +47,9 @@ Each SVG should have a tightly cropped and consistent `viewBox`.
 - On mobile, keeps usernames and badge icons visible when horizontal space is limited.
 - Clips only the trust-level title text instead of wrapping it onto another line or covering post metadata.
 - Applies the same clipping behavior when only one user name is displayed.
+
+## 3.2.3
+
+- Re-applies the mobile username/title wrapper whenever Discourse switches between desktop and mobile layouts without a page reload.
+- Restores the original DOM automatically when switching back to desktop.
+- Uses the reactive `site.mobileView` service through an Ember modifier; no polling or MutationObserver.
