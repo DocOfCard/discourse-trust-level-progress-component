@@ -1,1 +1,25 @@
+// Desktop post header layout.
+// Keep both the username and trust-level title intact; wrap the title as a whole
+// when the row does not have enough space.
+.topic-post .topic-meta-data .names {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: 0.45em;
+  row-gap: 0.12em;
+  min-width: 0;
+}
 
+.topic-post .topic-meta-data .names > span {
+  margin-inline-end: 0;
+}
+
+.topic-post .topic-meta-data .names .first,
+.topic-post .topic-meta-data .names .trust-level-title-on-post {
+  flex: 0 0 auto;
+  max-width: 100%;
+}
+
+.topic-post .topic-meta-data .names .first > a {
+  white-space: nowrap;
+}
