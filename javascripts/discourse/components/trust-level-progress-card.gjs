@@ -166,12 +166,21 @@ export default class TrustLevelProgressCard extends Component {
       return tl3Items(this.data.requirements.details || {});
     }
 
-    return (this.data.requirements.items || []).map((item) => ({
-      ...item,
-      percent: percent(item.current, item.required),
-      currentText: String(item.current),
-      requiredText: String(item.required),
-    }));
+    return (this.data.requirements.items || []).map((item) => {
+      const current = Number(item.current || 0);
+      const required = Number(item.required || 0);
+      const met = item.met ?? current >= required;
+
+      return {
+        ...item,
+        current,
+        required,
+        met,
+        percent: percent(current, required),
+        currentText: String(current),
+        requiredText: String(required),
+      };
+    });
   }
 
   get overallPercent() {

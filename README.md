@@ -14,3 +14,5 @@ Companion endpoint:
 `GET /trust-level-progress/progress.json`
 
 Install `discourse-trust-level-progress-api` to enable the profile progress card. The post trust-level title works independently. Visual and wording changes can be deployed by updating this Theme Component without rebuilding the Discourse container.
+
+- TL1、TL2、TL3 均使用统一的四列表格展示：要求项目、状态、当前值、要求值。
