@@ -31,36 +31,32 @@ class PostTrustLevelTitle extends Component {
   }
 
   @action
-  buildFixedPosterNameLayout(element) {
+  groupWithUsername(element) {
     const names = element.closest(".names");
 
     if (!names) {
       return;
     }
 
-    names.classList.add("trust-level-names-layout");
+    // Keep username and trust-level title together as one wrapping unit.
+    // When the row is too narrow, this whole unit moves to the next line.
+    let group = names.querySelector(":scope > .trust-level-secondary-group");
 
-    let userRow = names.querySelector(":scope > .trust-level-user-row");
+    if (!group) {
+      group = document.createElement("span");
+      group.className = "trust-level-secondary-group";
 
-    if (!userRow) {
-      userRow = document.createElement("span");
-      userRow.className = "trust-level-user-row";
+      const username = names.querySelector(":scope > .second");
+      const insertionPoint = username || element;
+      names.insertBefore(group, insertionPoint);
 
-      const displayName = names.querySelector(":scope > .first");
-      if (displayName) {
-        displayName.insertAdjacentElement("afterend", userRow);
-      } else {
-        names.appendChild(userRow);
+      if (username) {
+        group.appendChild(username);
       }
     }
 
-    const username = names.querySelector(":scope > .second");
-    if (username && username.parentElement !== userRow) {
-      userRow.appendChild(username);
-    }
-
-    if (element.parentElement !== userRow) {
-      userRow.appendChild(element);
+    if (element.parentElement !== group) {
+      group.appendChild(element);
     }
   }
 
@@ -68,7 +64,7 @@ class PostTrustLevelTitle extends Component {
     {{#if this.title}}
       <span
         class="trust-level-title-on-post"
-        {{didInsert this.buildFixedPosterNameLayout}}
+        {{didInsert this.groupWithUsername}}
       >
         {{#if this.badge}}
           <img class="trust-level-title-on-post__icon" src={{this.badge}} alt="" />
