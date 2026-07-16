@@ -1,10 +1,9 @@
-// Rendered after the native poster-name outlet, then moved immediately below
-// `.names` so Discourse keeps full control of nickname/username layout.
-.topic-post .topic-meta-data > .trust-level-title-on-post {
-  display: flex !important;
+// Trust level title rendered below the native poster-name block.
+.topic-post .trust-level-title-on-post {
+  display: inline-flex !important;
   align-items: center !important;
   gap: 0.3em !important;
-  width: max-content !important;
+  width: auto !important;
   max-width: 100% !important;
   margin: 5px 0 0 !important;
   padding: 0 !important;
@@ -15,13 +14,18 @@
   white-space: nowrap !important;
 }
 
-.topic-post .topic-meta-data > .trust-level-title-on-post
-  .trust-level-title-on-post__icon {
+.topic-post img.trust-level-title-on-post__icon {
   display: block !important;
+  box-sizing: border-box !important;
   width: 1.2em !important;
+  min-width: 1.2em !important;
+  max-width: 1.2em !important;
   height: 1.2em !important;
+  min-height: 1.2em !important;
+  max-height: 1.2em !important;
   flex: 0 0 1.2em !important;
   margin: 0 !important;
+  padding: 0 !important;
   object-fit: contain !important;
 }
 
