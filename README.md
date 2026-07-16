@@ -32,7 +32,12 @@ assets/badge-tl4.svg
 
 Each SVG should have a tightly cropped and consistent `viewBox`.
 
-## 3.2.0
+## 3.2.1
 
 - Added theme-component color settings for TL0-TL4 post titles.
 - TL3 defaults to gold; TL4 defaults to purple.
+
+
+## 3.2.1
+
+- Fixes mobile ordering when a post shows only one user name: the trust-level label now stays after the user name on the same line.
