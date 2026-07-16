@@ -2,8 +2,11 @@ import Component from "@glimmer/component";
 import { withPluginApi } from "discourse/lib/plugin-api";
 import { i18n } from "discourse-i18n";
 
+const TRUST_LEVEL_KEYS = ["newuser", "basic", "member", "regular", "leader"];
+
 function levelTitle(level) {
-  return i18n(themePrefix(`trust_level_progress.levels.${level}`));
+  const key = TRUST_LEVEL_KEYS[Number(level)];
+  return key ? i18n(`trust_levels.names.${key}`) : `TL${level}`;
 }
 
 class PostTrustLevelTitle extends Component {

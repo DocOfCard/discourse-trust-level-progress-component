@@ -7,12 +7,15 @@ import { ajax } from "discourse/lib/ajax";
 import { and, not } from "discourse/truth-helpers";
 import { i18n } from "discourse-i18n";
 
+const TRUST_LEVEL_KEYS = ["newuser", "basic", "member", "regular", "leader"];
+
 function text(key, options = {}) {
   return i18n(themePrefix(`trust_level_progress.${key}`), options);
 }
 
 function levelTitle(level) {
-  return text(`levels.${level}`);
+  const key = TRUST_LEVEL_KEYS[Number(level)];
+  return key ? i18n(`trust_levels.names.${key}`) : `TL${level}`;
 }
 
 function metricTitle(key) {
@@ -33,13 +36,28 @@ function percent(current, required, maximum = false) {
 
 function tl3Items(details) {
   const penalties = details.penalty_counts || {};
+  const timePeriod = Number(details.time_period || 0);
+  const daysVisited = Number(details.days_visited || 0);
+  const minDaysVisited = Number(details.min_days_visited || 0);
+  const daysVisitedPercent = timePeriod
+    ? Math.round((daysVisited * 100) / timePeriod)
+    : 0;
+  const minDaysVisitedPercent = timePeriod
+    ? Math.round((minDaysVisited * 100) / timePeriod)
+    : 0;
 
   return [
-    { key: "days_visited_tl3", current: details.days_visited, required: details.min_days_visited },
     { key: "topics_replied_to", current: details.num_topics_replied_to, required: details.min_topics_replied_to },
     { key: "topics_viewed", current: details.topics_viewed, required: details.min_topics_viewed },
     { key: "topics_viewed_all_time", current: details.topics_viewed_all_time, required: details.min_topics_viewed_all_time },
     { key: "posts_read_tl3", current: details.posts_read, required: details.min_posts_read },
+    {
+      key: "posts_read_days",
+      current: daysVisited,
+      required: minDaysVisited,
+      currentText: `${daysVisitedPercent}% (${daysVisited} / ${timePeriod} ${text("days")})`,
+      requiredText: `${minDaysVisitedPercent}%`,
+    },
     { key: "posts_read_all_time", current: details.posts_read_all_time, required: details.min_posts_read_all_time },
     { key: "flagged_posts", current: details.num_flagged_posts, required: details.max_flagged_posts, maximum: true },
     { key: "flagged_by_users", current: details.num_flagged_by_users, required: details.max_flagged_by_users, maximum: true },
@@ -49,15 +67,21 @@ function tl3Items(details) {
     { key: "likes_received_users", current: details.num_likes_received_users, required: details.min_likes_received_users },
     { key: "silenced", current: penalties.silenced || 0, required: 0, maximum: true },
     { key: "suspended", current: penalties.suspended || 0, required: 0, maximum: true },
-  ].map((item) => ({
-    ...item,
-    current: Number(item.current || 0),
-    required: Number(item.required || 0),
-    met: item.maximum
-      ? Number(item.current || 0) <= Number(item.required || 0)
-      : Number(item.current || 0) >= Number(item.required || 0),
-    percent: percent(Number(item.current || 0), Number(item.required || 0), item.maximum),
-  }));
+  ].map((item) => {
+    const current = Number(item.current || 0);
+    const required = Number(item.required || 0);
+    const met = item.maximum ? current <= required : current >= required;
+
+    return {
+      ...item,
+      current,
+      required,
+      met,
+      percent: percent(current, required, item.maximum),
+      currentText: item.currentText ?? String(current),
+      requiredText: item.requiredText ?? (item.maximum ? text("max_count", { count: required }) : String(required)),
+    };
+  });
 }
 
 export default class TrustLevelProgressCard extends Component {
@@ -118,14 +142,19 @@ export default class TrustLevelProgressCard extends Component {
   }
 
   get isLocked() {
-    return (
-      this.data?.manual_locked_trust_level !== null &&
-      this.data?.manual_locked_trust_level !== undefined
-    );
+    return Boolean(this.data?.trust_level_locked);
   }
 
   get isMaximumLevel() {
     return this.nextLevel === null || this.currentLevel >= 4;
+  }
+
+  get isTl3() {
+    return this.data?.requirements?.type === "tl3";
+  }
+
+  get timePeriod() {
+    return Number(this.data?.requirements?.details?.time_period || 0);
   }
 
   get items() {
@@ -133,13 +162,15 @@ export default class TrustLevelProgressCard extends Component {
       return [];
     }
 
-    if (this.data.requirements.type === "tl3") {
+    if (this.isTl3) {
       return tl3Items(this.data.requirements.details || {});
     }
 
     return (this.data.requirements.items || []).map((item) => ({
       ...item,
       percent: percent(item.current, item.required),
+      currentText: String(item.current),
+      requiredText: String(item.required),
     }));
   }
 
@@ -193,19 +224,41 @@ export default class TrustLevelProgressCard extends Component {
                 <p class="trust-level-progress__warning">{{text "locked"}}</p>
               {{/if}}
 
-              <p class="trust-level-progress__status">
+              {{#if this.isTl3}}
+                <p class="trust-level-progress__period">
+                  {{text "past_days" count=this.timePeriod}}
+                </p>
+              {{/if}}
+
+              <div class="trust-level-progress__table-wrap">
+                <table class="trust-level-progress__table">
+                  <thead>
+                    <tr>
+                      <th scope="col">{{text "requirement"}}</th>
+                      <th scope="col" aria-label={{text "status"}}></th>
+                      <th scope="col">{{text "value"}}</th>
+                      <th scope="col">{{text "required"}}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {{#each this.items as |item|}}
+                      <tr class={{if item.met "is-complete" "is-incomplete"}}>
+                        <th scope="row">{{metricTitle item.key}}</th>
+                        <td class="trust-level-progress__indicator" aria-label={{if item.met (text "complete") (text "incomplete")}}>
+                          {{if item.met "✓" "×"}}
+                        </td>
+                        <td>{{item.currentText}}</td>
+                        <td>{{item.requiredText}}</td>
+                      </tr>
+                    {{/each}}
+                  </tbody>
+                </table>
+              </div>
+
+              <p class="trust-level-progress__status {{if this.data.requirements.met 'is-complete' 'is-incomplete'}}">
+                <span aria-hidden="true">{{if this.data.requirements.met "✓" "×"}}</span>
                 {{if this.data.requirements.met (text "met") (text "not_met")}}
               </p>
-
-              <div class="trust-level-progress__metrics">
-                {{#each this.items as |item|}}
-                  <div class="trust-level-progress__metric {{if item.met 'is-complete' 'is-incomplete'}}">
-                    <span class="trust-level-progress__indicator" aria-hidden="true">{{if item.met "✓" "×"}}</span>
-                    <span class="trust-level-progress__label">{{metricTitle item.key}}</span>
-                    <strong>{{item.current}} / {{item.required}}</strong>
-                  </div>
-                {{/each}}
-              </div>
             {{/if}}
           </section>
         {{/if}}
