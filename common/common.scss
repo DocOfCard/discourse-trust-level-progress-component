@@ -4,7 +4,7 @@
   display: flex !important;
   flex-direction: row !important;
   flex-wrap: wrap !important;
-  align-items: baseline !important;
+  align-items: center !important;
   column-gap: 0.4em !important;
   row-gap: 0.12em !important;
   overflow: visible !important;
@@ -30,8 +30,9 @@
   flex-direction: row !important;
   order: 2 !important;
   flex: 0 0 auto !important;
-  align-items: baseline !important;
+  align-items: center !important;
   gap: 0.42em !important;
+  line-height: var(--line-height-medium) !important;
   max-width: 100% !important;
   margin: 0 !important;
   white-space: nowrap !important;
@@ -39,12 +40,18 @@
 
 .topic-post .trust-level-secondary-group > .second {
   display: inline-flex !important;
+  align-items: center !important;
   order: 1 !important;
   flex: 0 0 auto !important;
   margin: 0 !important;
   overflow: visible !important;
   text-overflow: clip !important;
   white-space: nowrap !important;
+  line-height: inherit !important;
+}
+
+.topic-post .trust-level-secondary-group > .second > a {
+  line-height: inherit !important;
 }
 
 .topic-post .trust-level-title-on-post {
@@ -58,7 +65,7 @@
   color: var(--primary-medium) !important;
   font-size: var(--font-down-1) !important;
   font-weight: 500 !important;
-  line-height: 1.25 !important;
+  line-height: inherit !important;
   white-space: nowrap !important;
 }
 
