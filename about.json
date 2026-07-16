@@ -1,0 +1,10 @@
+{
+  "name": "Discourse Trust Level Progress Component",
+  "version": "1.2.3",
+  "author": "DocOfCard",
+  "about_url": "https://github.com/DocOfCard/discourse-trust-level-progress-component",
+  "license_url": "https://github.com/DocOfCard/discourse-trust-level-progress-component/blob/main/LICENSE",
+  "component": true,
+  "assets": {},
+  "color_schemes": {}
+}

@@ -1,0 +1,134 @@
+.trust-level-title-on-post {
+  margin-inline-start: 0.35em;
+  color: var(--primary-medium);
+  font-size: var(--font-down-1);
+  font-weight: 500;
+}
+
+.trust-level-progress {
+  box-sizing: border-box;
+  max-width: 1110px;
+  margin: 1rem auto;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--primary-low);
+  border-radius: var(--d-border-radius-large);
+  background: var(--secondary);
+  box-shadow: 0 1px 3px rgb(0 0 0 / 8%);
+
+  h2,
+  p {
+    margin: 0;
+  }
+}
+
+.trust-level-progress__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.trust-level-progress__eyebrow,
+.trust-level-progress__muted,
+.trust-level-progress__next,
+.trust-level-progress__status {
+  color: var(--primary-medium);
+  font-size: var(--font-down-1);
+}
+
+.trust-level-progress__warning {
+  margin-top: 0.6rem !important;
+  color: var(--danger);
+}
+
+.trust-level-progress__bar {
+  height: 0.65rem;
+  margin-top: 0.9rem;
+  overflow: hidden;
+  border-radius: 999px;
+  background: var(--primary-low);
+
+  span {
+    display: block;
+    height: 100%;
+    border-radius: inherit;
+    background: var(--tertiary);
+    transition: width 300ms ease;
+  }
+}
+
+.trust-level-progress__next,
+.trust-level-progress__status {
+  margin-top: 0.45rem !important;
+}
+
+.trust-level-progress__metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 0 1rem;
+  margin-top: 1rem;
+}
+
+.trust-level-progress__metric {
+  display: grid;
+  grid-template-columns: 1.25rem minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.55rem 0;
+  border-bottom: 1px solid var(--primary-low);
+
+  &.is-complete .trust-level-progress__indicator {
+    color: var(--success);
+  }
+
+  &.is-incomplete .trust-level-progress__indicator {
+    color: var(--danger);
+  }
+}
+
+.trust-level-progress__label {
+  min-width: 0;
+}
+
+@media (max-width: 700px) {
+  .trust-level-progress {
+    margin: 0.75rem 0.5rem;
+  }
+
+  .trust-level-progress__metrics {
+    grid-template-columns: 1fr;
+  }
+
+  .topic-post .topic-meta-data .names,
+  .topic-post .topic-meta-data .names .first {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .topic-post .topic-meta-data .names .first {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: nowrap;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .topic-post .topic-meta-data .names .first .username,
+  .topic-post .topic-meta-data .names .first .name {
+    flex: 0 1 auto;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .topic-post .trust-level-title-on-post {
+    display: inline-block;
+    flex: 0 1 auto;
+    min-width: 0;
+    max-width: 45%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    vertical-align: bottom;
+  }
+}
