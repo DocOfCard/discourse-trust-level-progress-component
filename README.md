@@ -1,6 +1,6 @@
 # Discourse Trust Level Progress Component
 
-Version 3.0.0
+Version 3.2.2
 
 This theme component:
 
@@ -41,3 +41,9 @@ Each SVG should have a tightly cropped and consistent `viewBox`.
 ## 3.2.1
 
 - Fixes mobile ordering when a post shows only one user name: the trust-level label now stays after the user name on the same line.
+
+## 3.2.2
+
+- On mobile, keeps usernames and badge icons visible when horizontal space is limited.
+- Clips only the trust-level title text instead of wrapping it onto another line or covering post metadata.
+- Applies the same clipping behavior when only one user name is displayed.
