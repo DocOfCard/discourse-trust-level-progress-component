@@ -2,6 +2,7 @@
 // one indivisible wrapping unit on both desktop and mobile.
 .topic-post .topic-meta-data > .names {
   display: flex !important;
+  flex-direction: row !important;
   flex-wrap: wrap !important;
   align-items: baseline !important;
   column-gap: 0.4em !important;
@@ -10,6 +11,7 @@
 }
 
 .topic-post .topic-meta-data > .names > .first {
+  order: 1 !important;
   flex: 0 1 auto !important;
   max-width: 100% !important;
   margin-right: 0 !important;
@@ -25,6 +27,8 @@
 
 .topic-post .trust-level-secondary-group {
   display: inline-flex !important;
+  flex-direction: row !important;
+  order: 2 !important;
   flex: 0 0 auto !important;
   align-items: baseline !important;
   gap: 0.42em !important;
@@ -35,6 +39,7 @@
 
 .topic-post .trust-level-secondary-group > .second {
   display: inline-flex !important;
+  order: 1 !important;
   flex: 0 0 auto !important;
   margin: 0 !important;
   overflow: visible !important;
@@ -44,6 +49,7 @@
 
 .topic-post .trust-level-title-on-post {
   display: inline-flex !important;
+  order: 2 !important;
   flex: 0 0 auto !important;
   align-items: center !important;
   gap: 0.32em !important;
