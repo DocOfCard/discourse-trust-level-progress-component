@@ -1,4 +1,4 @@
-import TrustLevelProgressCard from "discourse/components/trust-level-progress-card";
+import TrustLevelProgressCard from "../../components/trust-level-progress-card";
 
 <template>
   <div class="user-content trust-level-progress-page">
