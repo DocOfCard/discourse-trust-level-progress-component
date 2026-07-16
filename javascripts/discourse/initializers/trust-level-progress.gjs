@@ -9,15 +9,33 @@ function levelTitle(level) {
   return key ? i18n(`trust_levels.names.${key}`) : `TL${level}`;
 }
 
+function levelBadge(level) {
+  return settings.theme_uploads?.[`badge_tl${Number(level)}`];
+}
+
 class PostTrustLevelTitle extends Component {
+  get level() {
+    return this.args.post?.trust_level;
+  }
+
   get title() {
-    const level = this.args.post?.trust_level;
-    return level === undefined || level === null ? "" : levelTitle(level);
+    return this.level === undefined || this.level === null
+      ? ""
+      : levelTitle(this.level);
+  }
+
+  get badge() {
+    return this.title ? levelBadge(this.level) : null;
   }
 
   <template>
     {{#if this.title}}
-      <span class="trust-level-title-on-post">{{this.title}}</span>
+      <span class="trust-level-title-on-post">
+        {{#if this.badge}}
+          <img class="trust-level-title-on-post__icon" src={{this.badge}} alt="" />
+        {{/if}}
+        <span>{{this.title}}</span>
+      </span>
     {{/if}}
   </template>
 }

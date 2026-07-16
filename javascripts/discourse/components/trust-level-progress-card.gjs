@@ -18,6 +18,10 @@ function levelTitle(level) {
   return key ? i18n(`trust_levels.names.${key}`) : `TL${level}`;
 }
 
+function levelBadge(level) {
+  return settings.theme_uploads?.[`badge_tl${Number(level)}`];
+}
+
 function metricTitle(key) {
   return text(`metrics.${key}`);
 }
@@ -141,6 +145,14 @@ export default class TrustLevelProgressCard extends Component {
     return this.data?.next_level;
   }
 
+  get currentLevelBadge() {
+    return levelBadge(this.currentLevel);
+  }
+
+  get nextLevelBadge() {
+    return levelBadge(this.nextLevel);
+  }
+
   get isLocked() {
     return Boolean(this.data?.trust_level_locked);
   }
@@ -206,7 +218,16 @@ export default class TrustLevelProgressCard extends Component {
             <div class="trust-level-progress__header">
               <div>
                 <div class="trust-level-progress__eyebrow">{{text "current_level"}}</div>
-                <h2>{{levelTitle this.currentLevel}}</h2>
+                <h2 class="trust-level-progress__level-name">
+                  {{#if this.currentLevelBadge}}
+                    <img
+                      class="trust-level-progress__level-icon"
+                      src={{this.currentLevelBadge}}
+                      alt=""
+                    />
+                  {{/if}}
+                  <span>{{levelTitle this.currentLevel}}</span>
+                </h2>
               </div>
               {{#unless this.isMaximumLevel}}
                 <strong>{{this.overallPercent}}%</strong>
@@ -226,7 +247,15 @@ export default class TrustLevelProgressCard extends Component {
                 <span style={{this.progressStyle}}></span>
               </div>
               <p class="trust-level-progress__next">
-                {{text "progress_to" level=(levelTitle this.nextLevel)}}
+                <span>{{text "progress_to_label"}}</span>
+                {{#if this.nextLevelBadge}}
+                  <img
+                    class="trust-level-progress__level-icon trust-level-progress__level-icon--next"
+                    src={{this.nextLevelBadge}}
+                    alt=""
+                  />
+                {{/if}}
+                <span>{{levelTitle this.nextLevel}}</span>
               </p>
 
               {{#if this.isLocked}}

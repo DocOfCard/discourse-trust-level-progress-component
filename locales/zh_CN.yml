@@ -4,6 +4,7 @@ zh_CN:
   trust_level_progress:
     nav_title: "信任等级"
     current_level: "当前信任等级"
+    progress_to_label: "升级到"
     progress_to: "升级到 %{level} 的进度"
     highest_level: "你已经达到最高信任等级。"
     locked: "你的信任等级已被管理员手动锁定，因此不会自动升级。"

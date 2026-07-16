@@ -1,8 +1,18 @@
 .trust-level-title-on-post {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.28em;
   margin-inline-start: 0.35em;
   color: var(--primary-medium);
   font-size: var(--font-down-1);
   font-weight: 500;
+}
+
+.trust-level-title-on-post__icon {
+  width: 1.2em;
+  height: 1.2em;
+  flex: 0 0 auto;
+  object-fit: contain;
 }
 
 .trust-level-progress {
@@ -31,6 +41,26 @@
 .trust-level-progress__next {
   color: var(--primary-medium);
   font-size: var(--font-down-1);
+}
+
+
+.trust-level-progress__level-name,
+.trust-level-progress__next {
+  display: flex;
+  align-items: center;
+  gap: 0.42rem;
+}
+
+.trust-level-progress__level-icon {
+  width: 1.55em;
+  height: 1.55em;
+  flex: 0 0 auto;
+  object-fit: contain;
+}
+
+.trust-level-progress__level-icon--next {
+  width: 1.25em;
+  height: 1.25em;
 }
 
 .trust-level-progress__warning {
