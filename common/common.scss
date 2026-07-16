@@ -1,19 +1,24 @@
+// Shared post trust-level title styles. Keep Discourse's native .names layout intact.
 .trust-level-title-on-post {
   display: inline-flex;
   align-items: center;
   gap: 0.28em;
-  margin-inline-start: 0.35em;
+  margin: 0;
   color: var(--primary-medium);
   font-size: var(--font-down-1);
   font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+  vertical-align: middle;
 }
 
 .trust-level-title-on-post__icon {
+  display: block;
   width: 1.2em;
   height: 1.2em;
-  display: block;
   flex: 0 0 auto;
   object-fit: contain;
+  transform: translateY(-0.02em);
 }
 
 .trust-level-progress {
@@ -162,55 +167,4 @@
 
 .user-nav__trust-level .d-icon {
   color: var(--primary-medium);
-}
-
-@media (max-width: 700px) {
-  .trust-level-progress {
-    margin: 0.75rem 0;
-    padding: 1rem 0.75rem;
-  }
-
-  .trust-level-progress__table {
-    th,
-    td {
-      padding: 0.65rem 0.4rem;
-    }
-
-    tbody th {
-      min-width: 10rem;
-    }
-  }
-
-  .topic-post .topic-meta-data .names,
-  .topic-post .topic-meta-data .names .first {
-    min-width: 0;
-    max-width: 100%;
-  }
-
-  .topic-post .topic-meta-data .names .first {
-    display: flex;
-    align-items: baseline;
-    flex-wrap: nowrap;
-    overflow: hidden;
-    white-space: nowrap;
-  }
-
-  .topic-post .topic-meta-data .names .first .username,
-  .topic-post .topic-meta-data .names .first .name {
-    flex: 0 1 auto;
-    min-width: 0;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .topic-post .trust-level-title-on-post {
-    display: inline-flex;
-    align-items: center;
-    flex: 0 1 auto;
-    min-width: 0;
-    max-width: 45%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
 }
