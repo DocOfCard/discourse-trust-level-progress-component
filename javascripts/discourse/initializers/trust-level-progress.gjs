@@ -1,4 +1,6 @@
 import Component from "@glimmer/component";
+import { action } from "@ember/object";
+import didInsert from "@ember/render-modifiers/modifiers/did-insert";
 import { withPluginApi } from "discourse/lib/plugin-api";
 import { i18n } from "discourse-i18n";
 
@@ -28,14 +30,27 @@ class PostTrustLevelTitle extends Component {
     return this.title ? levelBadge(this.level) : null;
   }
 
+  @action
+  moveBelowPosterNames(element) {
+    const topicMetaData = element.closest(".topic-meta-data");
+    const names = topicMetaData?.querySelector(":scope > .names");
+
+    if (names && names.nextElementSibling !== element) {
+      names.insertAdjacentElement("afterend", element);
+    }
+  }
+
   <template>
     {{#if this.title}}
-      <span class="trust-level-title-on-post">
+      <div
+        class="trust-level-title-on-post"
+        {{didInsert this.moveBelowPosterNames}}
+      >
         {{#if this.badge}}
           <img class="trust-level-title-on-post__icon" src={{this.badge}} alt="" />
         {{/if}}
         <span>{{this.title}}</span>
-      </span>
+      </div>
     {{/if}}
   </template>
 }
