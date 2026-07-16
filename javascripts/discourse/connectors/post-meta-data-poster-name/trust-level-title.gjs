@@ -1,7 +1,6 @@
 import Component from "@glimmer/component";
-import { action } from "@ember/object";
 import { service } from "@ember/service";
-import didInsert from "@ember/render-modifiers/modifiers/did-insert";
+import { modifier } from "ember-modifier";
 import { and } from "discourse/truth-helpers";
 import { i18n } from "discourse-i18n";
 
@@ -32,9 +31,8 @@ export default class TrustLevelTitle extends Component {
     return settings.show_title_on_posts;
   }
 
-  @action
-  setupMobileUserRow(titleElement) {
-    if (!this.site.mobileView) {
+  mobileUserRow = modifier((titleElement, [mobileView]) => {
+    if (!mobileView) {
       return;
     }
 
@@ -56,7 +54,7 @@ export default class TrustLevelTitle extends Component {
     row.append(username, titleElement);
 
     return () => {
-      if (!row.isConnected) {
+      if (!names.isConnected || !row.isConnected) {
         return;
       }
 
@@ -64,9 +62,13 @@ export default class TrustLevelTitle extends Component {
         names.insertBefore(username, row);
       }
 
+      if (titleElement.isConnected) {
+        names.insertBefore(titleElement, row);
+      }
+
       row.remove();
     };
-  }
+  });
 
   <template>
     {{yield}}
@@ -74,7 +76,7 @@ export default class TrustLevelTitle extends Component {
     {{#if (and this.enabled this.title)}}
       <span
         class="trust-level-title-on-post trust-level-title-on-post--tl{{this.level}}"
-        {{didInsert this.setupMobileUserRow}}
+        {{this.mobileUserRow this.site.mobileView}}
       >
         {{#if this.badge}}
           <img
