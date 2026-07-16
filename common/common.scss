@@ -219,6 +219,12 @@
   white-space: nowrap;
 }
 
+.mobile-view .topic-post .names > .trust-level-title-on-post {
+  order: 2;
+  flex: 0 0 auto;
+}
+
+
 .mobile-view .topic-post .trust-level-user-row > .second {
   order: 1;
 }
