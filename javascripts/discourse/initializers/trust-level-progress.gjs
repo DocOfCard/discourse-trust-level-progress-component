@@ -31,32 +31,46 @@ class PostTrustLevelTitle extends Component {
   }
 
   @action
-  moveBelowPosterNames(element) {
-    const topicMetaData = element.closest(".topic-meta-data");
-    const names = topicMetaData?.querySelector(":scope > .names");
+  groupWithUsername(element) {
+    const names = element.closest(".names");
 
-    if (!topicMetaData || !names) {
+    if (!names) {
       return;
     }
 
-    // Make the title a direct child of topic-meta-data so the grid layout is
-    // identical on desktop and mobile.
-    if (element.parentElement !== topicMetaData) {
-      topicMetaData.insertBefore(element, topicMetaData.querySelector(":scope > .post-infos"));
+    // Keep username and trust-level title together as one wrapping unit.
+    // When the row is too narrow, this whole unit moves to the next line.
+    let group = names.querySelector(":scope > .trust-level-secondary-group");
+
+    if (!group) {
+      group = document.createElement("span");
+      group.className = "trust-level-secondary-group";
+
+      const username = names.querySelector(":scope > .second");
+      const insertionPoint = username || element;
+      names.insertBefore(group, insertionPoint);
+
+      if (username) {
+        group.appendChild(username);
+      }
+    }
+
+    if (element.parentElement !== group) {
+      group.appendChild(element);
     }
   }
 
   <template>
     {{#if this.title}}
-      <div
+      <span
         class="trust-level-title-on-post"
-        {{didInsert this.moveBelowPosterNames}}
+        {{didInsert this.groupWithUsername}}
       >
         {{#if this.badge}}
           <img class="trust-level-title-on-post__icon" src={{this.badge}} alt="" />
         {{/if}}
         <span>{{this.title}}</span>
-      </div>
+      </span>
     {{/if}}
   </template>
 }
