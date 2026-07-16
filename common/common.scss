@@ -26,11 +26,11 @@
   object-fit: contain;
 }
 
-.topic-post .names .trust-level-title-on-post--tl0 { color: var(--primary-medium); }
-.topic-post .names .trust-level-title-on-post--tl1 { color: var(--success); }
-.topic-post .names .trust-level-title-on-post--tl2 { color: var(--tertiary); }
-.topic-post .names .trust-level-title-on-post--tl3 { color: #8b5cf6; }
-.topic-post .names .trust-level-title-on-post--tl4 { color: #d79b00; }
+.topic-post .names .trust-level-title-on-post--tl0 { color: $trust_level_color_tl0; }
+.topic-post .names .trust-level-title-on-post--tl1 { color: $trust_level_color_tl1; }
+.topic-post .names .trust-level-title-on-post--tl2 { color: $trust_level_color_tl2; }
+.topic-post .names .trust-level-title-on-post--tl3 { color: $trust_level_color_tl3; }
+.topic-post .names .trust-level-title-on-post--tl4 { color: $trust_level_color_tl4; }
 
 .trust-level-progress {
   box-sizing: border-box;
