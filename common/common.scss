@@ -11,6 +11,7 @@
 .trust-level-title-on-post__icon {
   width: 1.2em;
   height: 1.2em;
+  display: block;
   flex: 0 0 auto;
   object-fit: contain;
 }
@@ -203,13 +204,13 @@
   }
 
   .topic-post .trust-level-title-on-post {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
     flex: 0 1 auto;
     min-width: 0;
     max-width: 45%;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    vertical-align: bottom;
   }
 }
