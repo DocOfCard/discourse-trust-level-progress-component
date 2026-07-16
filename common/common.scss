@@ -200,24 +200,29 @@
 
 }
 
-// Mobile: preserve native content and force visual order only.
-// This does not wrap username + trust title into one DOM group.
-@media (max-width: 700px) {
-  .mobile-view .topic-post .topic-meta-data .names {
-    display: flex !important;
-    flex-flow: row wrap !important;
-    align-items: center !important;
-  }
+// Mobile-only minimal DOM wrapper: keep username and trust-level label together.
+.mobile-view .topic-post .names {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+}
 
-  .mobile-view .topic-post .topic-meta-data .names > .first {
-    order: 1 !important;
-  }
+.mobile-view .topic-post .names > .first {
+  order: 1;
+}
 
-  .mobile-view .topic-post .topic-meta-data .names > .second {
-    order: 2 !important;
-  }
+.mobile-view .topic-post .names > .trust-level-user-row {
+  order: 2;
+  display: inline-flex;
+  align-items: center;
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
 
-  .mobile-view .topic-post .topic-meta-data .names > .trust-level-title-on-post {
-    order: 3 !important;
-  }
+.mobile-view .topic-post .trust-level-user-row > .second {
+  order: 1;
+}
+
+.mobile-view .topic-post .trust-level-user-row > .trust-level-title-on-post {
+  order: 2;
 }
