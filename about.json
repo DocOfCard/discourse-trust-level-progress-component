@@ -2,11 +2,12 @@
   "name": "Discourse Trust Level Progress Component",
   "component": true,
   "authors": "DocOfCard",
-  "theme_version": "2.0.0",
+  "theme_version": "2.1.0",
   "minimum_discourse_version": "3.3.0.beta1",
   "about_url": "https://github.com/DocOfCard/discourse-trust-level-progress-component",
   "license_url": "https://github.com/DocOfCard/discourse-trust-level-progress-component/blob/main/LICENSE",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "assets": {},
-  "color_schemes": {}
+  "color_schemes": {},
+  "description": "Adds a Trust Level tab after Badges on user profiles and displays official Discourse trust level progress for the signed-in user."
 }

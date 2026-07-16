@@ -2,6 +2,7 @@ zh_TW:
   theme_metadata:
     description: "在目前使用者資料頁顯示 Discourse 官方信任等級升級進度，並在文章作者旁顯示信任等級稱號。資料頁進度需要搭配 Trust Level Progress API 外掛。"
   trust_level_progress:
+    nav_title: "信任等級"
     current_level: "目前信任等級"
     progress_to: "升級到 %{level} 的進度"
     highest_level: "你已經達到最高自動信任等級。"
