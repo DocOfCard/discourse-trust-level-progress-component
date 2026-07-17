@@ -17,11 +17,7 @@
 .topic-post .names .trust-level-title-on-post__icon {
   display: block;
   width: 1.1em;
-  min-width: 1.1em;
-  max-width: 1.1em;
   height: 1.1em;
-  min-height: 1.1em;
-  max-height: 1.1em;
   flex: 0 0 1.1em;
   object-fit: contain;
 }
@@ -59,7 +55,6 @@
   color: var(--primary-medium);
   font-size: var(--font-down-1);
 }
-
 
 .trust-level-progress__level-name,
 .trust-level-progress__next {
@@ -196,8 +191,6 @@
       min-width: 10rem;
     }
   }
-
-
 }
 
 // Mobile-only minimal DOM wrapper: keep username and trust-level label together.

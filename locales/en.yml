@@ -7,7 +7,7 @@ en:
       trust_level_color_tl1: "Text color for TL1 titles."
       trust_level_color_tl2: "Text color for TL2 titles."
       trust_level_color_tl3: "Text color for TL3 titles. Default: gold."
-      trust_level_color_tl4: "Text color for TL4 titles. Default: purple."
+      trust_level_color_tl4: "Text color for TL4 titles. Default: red."
     description: "Displays official Discourse trust-level progress on the current user profile and trust-level titles beside post authors. Requires the companion Trust Level Progress API plugin for profile progress."
   trust_level_progress:
     nav_title: "Trust Level"
