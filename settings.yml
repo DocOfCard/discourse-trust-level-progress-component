@@ -2,3 +2,13 @@ show_title_on_posts:
   default: true
 show_profile_progress:
   default: true
+trust_level_color_tl0:
+  default: "#6FA96F"
+trust_level_color_tl1:
+  default: "#5D8FD8"
+trust_level_color_tl2:
+  default: "#8B72C9"
+trust_level_color_tl3:
+  default: "#B8922E"
+trust_level_color_tl4:
+  default: "#C86363"

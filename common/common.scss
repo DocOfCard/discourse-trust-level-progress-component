@@ -1,88 +1,36 @@
-// Keep the display name first. Treat username + trust-level badge/title as
-// one indivisible wrapping unit on both desktop and mobile.
-.topic-post .topic-meta-data > .names {
-  display: flex !important;
-  flex-direction: row !important;
-  flex-wrap: wrap !important;
-  align-items: center !important;
-  column-gap: 0.4em !important;
-  row-gap: 0.12em !important;
-  overflow: visible !important;
+// Native poster-name connector. Independent from .user-title theme styling.
+.topic-post .names .trust-level-title-on-post {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.32em;
+  margin-right: 0.33em;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  line-height: inherit;
+  white-space: nowrap;
+  font-weight: 500;
 }
 
-.topic-post .topic-meta-data > .names > .first {
-  order: 1 !important;
-  flex: 0 1 auto !important;
-  max-width: 100% !important;
-  margin-right: 0 !important;
-  overflow: visible !important;
-  text-overflow: clip !important;
-  white-space: normal !important;
+.topic-post .names .trust-level-title-on-post__icon {
+  display: block;
+  width: 1.1em;
+  min-width: 1.1em;
+  max-width: 1.1em;
+  height: 1.1em;
+  min-height: 1.1em;
+  max-height: 1.1em;
+  flex: 0 0 1.1em;
+  object-fit: contain;
 }
 
-.topic-post .topic-meta-data > .names > .first > a {
-  white-space: normal !important;
-  overflow-wrap: anywhere !important;
-}
-
-.topic-post .trust-level-secondary-group {
-  display: inline-flex !important;
-  flex-direction: row !important;
-  order: 2 !important;
-  flex: 0 0 auto !important;
-  align-items: center !important;
-  gap: 0.42em !important;
-  line-height: var(--line-height-medium) !important;
-  max-width: 100% !important;
-  margin: 0 !important;
-  white-space: nowrap !important;
-}
-
-.topic-post .trust-level-secondary-group > .second {
-  display: inline-flex !important;
-  align-items: center !important;
-  order: 1 !important;
-  flex: 0 0 auto !important;
-  margin: 0 !important;
-  overflow: visible !important;
-  text-overflow: clip !important;
-  white-space: nowrap !important;
-  line-height: inherit !important;
-}
-
-.topic-post .trust-level-secondary-group > .second > a {
-  line-height: inherit !important;
-}
-
-.topic-post .trust-level-title-on-post {
-  display: inline-flex !important;
-  order: 2 !important;
-  flex: 0 0 auto !important;
-  align-items: center !important;
-  gap: 0.32em !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  color: var(--primary-medium) !important;
-  font-size: var(--font-down-1) !important;
-  font-weight: 500 !important;
-  line-height: inherit !important;
-  white-space: nowrap !important;
-}
-
-.topic-post .trust-level-title-on-post__icon {
-  display: block !important;
-  box-sizing: border-box !important;
-  width: 1.1em !important;
-  min-width: 1.1em !important;
-  max-width: 1.1em !important;
-  height: 1.1em !important;
-  min-height: 1.1em !important;
-  max-height: 1.1em !important;
-  flex: 0 0 1.1em !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  object-fit: contain !important;
-}
+.topic-post .names .trust-level-title-on-post--tl0 { color: $trust_level_color_tl0; }
+.topic-post .names .trust-level-title-on-post--tl1 { color: $trust_level_color_tl1; }
+.topic-post .names .trust-level-title-on-post--tl2 { color: $trust_level_color_tl2; }
+.topic-post .names .trust-level-title-on-post--tl3 { color: $trust_level_color_tl3; }
+.topic-post .names .trust-level-title-on-post--tl4 { color: $trust_level_color_tl4; }
 
 .trust-level-progress {
   box-sizing: border-box;
@@ -250,4 +198,59 @@
   }
 
 
+}
+
+// Mobile-only minimal DOM wrapper: keep username and trust-level label together.
+.mobile-view .topic-post .names {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  min-width: 0;
+}
+
+.mobile-view .topic-post .names > .first {
+  order: 1;
+  flex: 0 0 auto;
+}
+
+// When both display name and username are present, this whole group moves to
+// the next line as one unit. If it is still too wide there, only the title text
+// is clipped; the username and SVG remain visible.
+.mobile-view .topic-post .names > .trust-level-user-row {
+  order: 2;
+  display: inline-flex;
+  align-items: center;
+  flex: 0 0 auto;
+  max-width: 100%;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.mobile-view .topic-post .trust-level-user-row > .second {
+  order: 1;
+  flex: 0 0 auto;
+}
+
+.mobile-view .topic-post .trust-level-user-row > .trust-level-title-on-post {
+  order: 2;
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+}
+
+// When Discourse renders only one user name there is no wrapper. Keep the
+// trust-level label after the name on the same line and clip only its text.
+.mobile-view .topic-post .names > .trust-level-title-on-post {
+  order: 2;
+  flex: 1 1 0;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.mobile-view .topic-post .trust-level-title-on-post__text {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: clip;
+  white-space: nowrap;
 }
