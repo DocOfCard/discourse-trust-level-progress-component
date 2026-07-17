@@ -1,0 +1,71 @@
+// Styles compiled only for Discourse mobile view.
+.trust-level-progress {
+  margin: 0.75rem 0;
+  padding: 1rem 0.75rem;
+}
+
+.trust-level-progress__table {
+  th,
+  td {
+    padding: 0.65rem 0.4rem;
+  }
+
+  tbody th {
+    min-width: 10rem;
+  }
+}
+
+// Mobile-only minimal DOM wrapper: keep username and trust-level label together.
+.mobile-view .topic-post .names {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  min-width: 0;
+}
+
+.mobile-view .topic-post .names > .first {
+  order: 1;
+  flex: 0 0 auto;
+}
+
+// When both display name and username are present, this whole group moves to
+// the next line as one unit. If it is still too wide there, only the title text
+// is clipped; the username and SVG remain visible.
+.mobile-view .topic-post .names > .trust-level-user-row {
+  order: 2;
+  display: inline-flex;
+  align-items: center;
+  flex: 0 0 auto;
+  max-width: 100%;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.mobile-view .topic-post .trust-level-user-row > .second {
+  order: 1;
+  flex: 0 0 auto;
+}
+
+.mobile-view .topic-post .trust-level-user-row > .trust-level-title-on-post {
+  order: 2;
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+}
+
+// When Discourse renders only one user name there is no wrapper. Keep the
+// trust-level label after the name on the same line and clip only its text.
+.mobile-view .topic-post .names > .trust-level-title-on-post {
+  order: 2;
+  flex: 1 1 0;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.mobile-view .topic-post .trust-level-title-on-post__text {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: clip;
+  white-space: nowrap;
+}

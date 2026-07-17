@@ -1,6 +1,6 @@
 # Discourse Trust Level Progress Component
 
-Version 3.2.6
+Version 4.0.0
 
 This theme component:
 
@@ -19,6 +19,35 @@ javascripts/discourse/connectors/post-meta-data-poster-name/trust-level-title.gj
 
 Desktop keeps Discourse's normal poster-name DOM. On mobile, the component creates a minimal temporary wrapper around the username and trust-level title so they wrap as one unit. The wrapper is removed automatically when switching back to desktop.
 
+## Stylesheet structure
+
+Styles follow Discourse theme-component conventions:
+
+```text
+common/common.scss
+ desktop/desktop.scss
+ mobile/mobile.scss
+```
+
+- `common/common.scss` contains shared post-title and profile-progress styles.
+- `desktop/desktop.scss` is reserved for desktop-only overrides. The current desktop layout needs no overrides.
+- `mobile/mobile.scss` contains the compact progress layout and the mobile username/title wrapping rules.
+
+## JavaScript structure
+
+The JavaScript/GJS files remain separated because each file has a distinct Discourse or Ember responsibility:
+
+```text
+javascripts/discourse/components/                 Progress UI and data loading
+javascripts/discourse/connectors/                 Post title and profile navigation outlets
+javascripts/discourse/initializers/                Tracked post property registration
+javascripts/discourse/routes/                      User profile route model
+javascripts/discourse/templates/                   User profile route template
+javascripts/discourse/trust-level-route-map.js     Route declaration
+```
+
+No compatibility layer, polling loop, MutationObserver, or duplicate legacy implementation is included.
+
 ## Badge assets
 
 Replace these files with your own SVGs while keeping the names unchanged:
@@ -34,6 +63,13 @@ assets/badge-tl4.svg
 Each SVG should have a tightly cropped and consistent `viewBox`.
 
 ## Changelog
+
+### 4.0.0
+
+- Reorganized SCSS into the official `common`, `desktop`, and `mobile` theme folders.
+- Kept all existing post-title, mobile layout, profile navigation, progress API, localization, settings, and SVG behavior unchanged.
+- Documented why the separate JavaScript/GJS files are required by their Discourse and Ember responsibilities.
+- Preserved the project description, author, repository, license, compatibility, settings, and asset metadata in `about.json`.
 
 ### 3.2.6
 
