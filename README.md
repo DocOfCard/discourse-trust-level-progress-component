@@ -1,31 +1,102 @@
 # Discourse Trust Level Progress Component
 
-Public, frontend-only Discourse Theme Component.
+Version 4.0.0
 
-Features:
+This theme component:
 
-- Displays the trust-level title beside post authors.
-- Displays exact promotion progress on the signed-in user's own profile when the companion API plugin is installed.
-- Includes desktop and mobile styling.
-- Operates safely without the API plugin: missing, unavailable, or unauthorized API responses are handled silently and the progress card is hidden.
+- adds a **Trust Level** tab after **Badges** on the signed-in user's profile;
+- displays official TL1, TL2, and TL3 progress from the companion API plugin;
+- shows the poster's trust-level name through the `post-meta-data-poster-name` connector;
+- uses the supplied TL0-TL4 SVG assets as the title icon.
 
-Companion endpoint:
+## Post title implementation
 
-`GET /trust-level-progress/progress.json`
+Post trust-level titles are rendered by:
 
-Install `discourse-trust-level-progress-api` to enable the profile progress card. The post trust-level title works independently. Visual and wording changes can be deployed by updating this Theme Component without rebuilding the Discourse container.
+```text
+javascripts/discourse/connectors/post-meta-data-poster-name/trust-level-title.gjs
+```
 
-- TL1、TL2、TL3 均使用统一的四列表格展示：要求项目、状态、当前值、要求值。
+Desktop keeps Discourse's normal poster-name DOM. On mobile, the component creates a minimal temporary wrapper around the username and trust-level title so they wrap as one unit. The wrapper is removed automatically when switching back to desktop.
 
+## Stylesheet structure
 
-## Trust level SVG assets
+Styles follow Discourse theme-component conventions:
 
-Replace the five placeholder files in `assets/` with the real badge artwork. Keep these exact file names:
+```text
+common/common.scss
+ desktop/desktop.scss
+ mobile/mobile.scss
+```
 
-- `assets/badge-tl0.svg`
-- `assets/badge-tl1.svg`
-- `assets/badge-tl2.svg`
-- `assets/badge-tl3.svg`
-- `assets/badge-tl4.svg`
+- `common/common.scss` contains shared post-title and profile-progress styles.
+- `desktop/desktop.scss` is reserved for desktop-only overrides. The current desktop layout needs no overrides.
+- `mobile/mobile.scss` contains the compact progress layout and the mobile username/title wrapping rules.
 
-The component automatically displays the matching SVG before trust-level names on the profile progress page and beside post-author trust-level titles.
+## JavaScript structure
+
+The JavaScript/GJS files remain separated because each file has a distinct Discourse or Ember responsibility:
+
+```text
+javascripts/discourse/components/                 Progress UI and data loading
+javascripts/discourse/connectors/                 Post title and profile navigation outlets
+javascripts/discourse/initializers/                Tracked post property registration
+javascripts/discourse/routes/                      User profile route model
+javascripts/discourse/templates/                   User profile route template
+javascripts/discourse/trust-level-route-map.js     Route declaration
+```
+
+No compatibility layer, polling loop, MutationObserver, or duplicate legacy implementation is included.
+
+## Badge assets
+
+Replace these files with your own SVGs while keeping the names unchanged:
+
+```text
+assets/badge-tl0.svg
+assets/badge-tl1.svg
+assets/badge-tl2.svg
+assets/badge-tl3.svg
+assets/badge-tl4.svg
+```
+
+Each SVG should have a tightly cropped and consistent `viewBox`.
+
+## Changelog
+
+### 4.0.0
+
+- Reorganized SCSS into the official `common`, `desktop`, and `mobile` theme folders.
+- Kept all existing post-title, mobile layout, profile navigation, progress API, localization, settings, and SVG behavior unchanged.
+- Documented why the separate JavaScript/GJS files are required by their Discourse and Ember responsibilities.
+- Preserved the project description, author, repository, license, compatibility, settings, and asset metadata in `about.json`.
+
+### 3.2.6
+
+- Updated documentation to match the current connector and mobile wrapper implementation.
+- Corrected the English TL4 color description.
+- Removed redundant SVG size constraints without changing the rendered size.
+
+### 3.2.5
+
+- Further softened the default TL0-TL4 title colors.
+- Kept the post title font weight at 500.
+
+### 3.2.4
+
+- Re-applies the mobile username/title wrapper whenever Discourse switches between desktop and mobile layouts without a page reload.
+- Restores the original DOM automatically when switching back to desktop.
+- Uses the reactive `site.mobileView` service through an Ember modifier; no polling or MutationObserver.
+- Softened default trust-level colors to reduce visual dominance.
+- Reduced post trust-level title weight from 600 to 500.
+
+### 3.2.2
+
+- Keeps usernames and badge icons visible on mobile when horizontal space is limited.
+- Clips only the trust-level title text instead of wrapping it onto another line or covering post metadata.
+- Applies the same clipping behavior when only one user name is displayed.
+
+### 3.2.1
+
+- Added theme-component color settings for TL0-TL4 post titles.
+- Fixed mobile ordering when a post shows only one user name, keeping the trust-level title after the user name on the same line.

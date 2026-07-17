@@ -1,5 +1,13 @@
 zh_TW:
   theme_metadata:
+    settings:
+      show_title_on_posts: "在文章作者旁顯示信任等級稱號。"
+      show_profile_progress: "在使用者資料頁顯示信任等級進度分頁。"
+      trust_level_color_tl0: "TL0 稱號文字顏色。"
+      trust_level_color_tl1: "TL1 稱號文字顏色。"
+      trust_level_color_tl2: "TL2 稱號文字顏色。"
+      trust_level_color_tl3: "TL3 稱號文字顏色，預設為金色。"
+      trust_level_color_tl4: "TL4 稱號文字顏色，預設為紅色。"
     description: "在目前使用者資料頁顯示 Discourse 官方信任等級升級進度，並在文章作者旁顯示信任等級稱號。資料頁進度需要搭配 Trust Level Progress API 外掛。"
   trust_level_progress:
     nav_title: "信任等級"
