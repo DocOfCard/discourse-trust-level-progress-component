@@ -202,7 +202,7 @@ export default class TrustLevelProgressCard extends Component {
       key,
       label: text(`gamification_rules.${key}`),
       value: Number(settings[setting] ?? 0),
-    }));
+    })).filter((rule) => settings.show_zero_score_rules || rule.value !== 0);
   }
 
   get currentLevel() {
@@ -328,6 +328,49 @@ export default class TrustLevelProgressCard extends Component {
                 </p>
               {{/if}}
 
+              {{#unless this.isMaximumLevel}}
+                <div class="trust-level-progress__requirements">
+                  {{#if this.isLocked}}
+                    <p class="trust-level-progress__warning">{{text "locked"}}</p>
+                  {{/if}}
+
+                  {{#if this.isTl3}}
+                    <p class="trust-level-progress__period">
+                      {{text "past_days" count=this.timePeriod}}
+                    </p>
+                  {{/if}}
+
+                  <div class="trust-level-progress__table-wrap">
+                    <table class="trust-level-progress__table">
+                      <thead>
+                        <tr>
+                          <th scope="col">{{text "requirement"}}</th>
+                          <th scope="col" aria-label={{text "status"}}></th>
+                          <th scope="col">{{text "value"}}</th>
+                          <th scope="col">{{text "required"}}</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {{#each this.items as |item|}}
+                          <tr class={{if item.met "is-complete" "is-incomplete"}}>
+                            <th scope="row">{{metricTitle item.key}}</th>
+                            <td class="trust-level-progress__indicator" aria-label={{if item.met (text "complete") (text "incomplete")}}>
+                              {{if item.met "✓" "×"}}
+                            </td>
+                            <td>{{item.currentText}}</td>
+                            <td>{{item.requiredText}}</td>
+                          </tr>
+                        {{/each}}
+                      </tbody>
+                    </table>
+                  </div>
+
+                  <p class="trust-level-progress__status {{if this.data.requirements.met 'is-complete' 'is-incomplete'}}">
+                    <span aria-hidden="true">{{if this.data.requirements.met "✓" "×"}}</span>
+                    {{if this.data.requirements.met (text "met") (text "not_met")}}
+                  </p>
+                </div>
+              {{/unless}}
             </div>
 
             {{#if this.hasGamification}}
@@ -365,48 +408,6 @@ export default class TrustLevelProgressCard extends Component {
               </section>
             {{/if}}
 
-            {{#unless this.isMaximumLevel}}
-
-              {{#if this.isLocked}}
-                <p class="trust-level-progress__warning">{{text "locked"}}</p>
-              {{/if}}
-
-              {{#if this.isTl3}}
-                <p class="trust-level-progress__period">
-                  {{text "past_days" count=this.timePeriod}}
-                </p>
-              {{/if}}
-
-              <div class="trust-level-progress__table-wrap">
-                <table class="trust-level-progress__table">
-                  <thead>
-                    <tr>
-                      <th scope="col">{{text "requirement"}}</th>
-                      <th scope="col" aria-label={{text "status"}}></th>
-                      <th scope="col">{{text "value"}}</th>
-                      <th scope="col">{{text "required"}}</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {{#each this.items as |item|}}
-                      <tr class={{if item.met "is-complete" "is-incomplete"}}>
-                        <th scope="row">{{metricTitle item.key}}</th>
-                        <td class="trust-level-progress__indicator" aria-label={{if item.met (text "complete") (text "incomplete")}}>
-                          {{if item.met "✓" "×"}}
-                        </td>
-                        <td>{{item.currentText}}</td>
-                        <td>{{item.requiredText}}</td>
-                      </tr>
-                    {{/each}}
-                  </tbody>
-                </table>
-              </div>
-
-              <p class="trust-level-progress__status {{if this.data.requirements.met 'is-complete' 'is-incomplete'}}">
-                <span aria-hidden="true">{{if this.data.requirements.met "✓" "×"}}</span>
-                {{if this.data.requirements.met (text "met") (text "not_met")}}
-              </p>
-            {{/unless}}
           </section>
         {{/if}}
       </div>
