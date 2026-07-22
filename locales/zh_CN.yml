@@ -12,6 +12,8 @@ zh_CN:
   trust_level_progress:
     nav_title: "信任等级"
     current_level: "当前信任等级"
+    achievement_points: "成就点数"
+    achievement_rank: "排行榜排名"
     progress_to_label: "升级到"
     progress_to: "升级到 %{level} 的进度"
     highest_level: "你已经达到最高信任等级。"

@@ -12,6 +12,8 @@ en:
   trust_level_progress:
     nav_title: "Trust Level"
     current_level: "Current trust level"
+    achievement_points: "Achievement points"
+    achievement_rank: "Leaderboard rank"
     progress_to_label: "Progress toward"
     progress_to: "Progress toward %{level}"
     highest_level: "You are already at the highest trust level."
