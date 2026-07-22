@@ -174,3 +174,82 @@
 .user-nav__trust-level .d-icon {
   color: var(--primary-medium);
 }
+
+// Profile summary card and optional Discourse Gamification score.
+.trust-level-progress__summary {
+  padding: 1.1rem 1.15rem;
+  border: 1px solid var(--primary-low);
+  border-radius: var(--d-border-radius-large);
+  background: var(--primary-very-low);
+}
+
+.trust-level-progress__identity {
+  min-width: 0;
+}
+
+.trust-level-progress__level-name {
+  margin-top: 0.25rem !important;
+  font-size: clamp(1.35rem, 2.4vw, 1.75rem);
+  line-height: 1.25;
+}
+
+.trust-level-progress__percent {
+  flex: 0 0 auto;
+  padding: 0.3rem 0.65rem;
+  border-radius: 999px;
+  background: var(--secondary);
+  box-shadow: 0 0 0 1px var(--primary-low);
+  font-size: var(--font-up-1);
+  line-height: 1;
+}
+
+.trust-level-progress__summary .trust-level-progress__bar {
+  height: 0.62rem;
+  margin-top: 1rem;
+  background: var(--primary-low-mid);
+}
+
+.trust-level-progress__summary .trust-level-progress__bar span {
+  background: var(--success);
+}
+
+.trust-level-progress__next-name {
+  color: var(--primary-high);
+  font-weight: 500;
+}
+
+.trust-level-progress__highest {
+  margin-top: 0.85rem !important;
+  color: var(--primary-medium);
+}
+
+.trust-level-progress__achievements {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--primary-low);
+}
+
+.trust-level-progress__achievement {
+  display: flex;
+  min-width: 8.5rem;
+  flex: 1 1 0;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.65rem 0.8rem;
+  border-radius: var(--d-border-radius);
+  background: var(--secondary);
+}
+
+.trust-level-progress__achievement-label {
+  color: var(--primary-medium);
+  font-size: var(--font-down-1);
+}
+
+.trust-level-progress__achievement strong {
+  color: var(--primary);
+  font-size: var(--font-up-1);
+  white-space: nowrap;
+}
