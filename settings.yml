@@ -13,6 +13,8 @@ trust_level_color_tl3:
 trust_level_color_tl4:
   default: "#B87474"
 
+show_zero_score_rules:
+  default: false
 gamification_like_received_score:
   default: 1
   type: integer

@@ -107,3 +107,9 @@ Each SVG should have a tightly cropped and consistent `viewBox`.
 - Separates Gamification data from the Trust Level card.
 - Adds editable theme settings for Gamification scoring rules.
 - Displays all configured scoring rules directly on the profile page.
+
+
+## 4.0.3
+
+- Moved trust-level promotion requirements into the trust-level summary card.
+- Added `show_zero_score_rules` (default off) to hide zero-value Gamification rules while preserving the configured rule order.
