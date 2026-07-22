@@ -69,3 +69,16 @@
   text-overflow: clip;
   white-space: nowrap;
 }
+
+.trust-level-progress__summary {
+  padding: 1rem;
+}
+
+.trust-level-progress__achievements {
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.trust-level-progress__achievement {
+  min-width: 0;
+}
