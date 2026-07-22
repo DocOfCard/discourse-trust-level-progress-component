@@ -8,6 +8,7 @@ zh_CN:
       trust_level_color_tl2: "TL2 称号文字颜色。"
       trust_level_color_tl3: "TL3 称号文字颜色，默认为金色。"
       trust_level_color_tl4: "TL4 称号文字颜色，默认为红色。"
+      show_zero_score_rules: "显示成就点数为 0 的记分规则。默认关闭。"
       gamification_like_received_score: "收到点赞的成就点数；请与 Gamification 后台设置保持一致。"
       gamification_like_given_score: "给出点赞的成就点数；请与 Gamification 后台设置保持一致。"
       gamification_solution_score: "帖子被标记为解决方案的成就点数；请与 Gamification 后台设置保持一致。"

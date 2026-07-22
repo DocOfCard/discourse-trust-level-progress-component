@@ -8,6 +8,7 @@ zh_TW:
       trust_level_color_tl2: "TL2 稱號文字顏色。"
       trust_level_color_tl3: "TL3 稱號文字顏色，預設為金色。"
       trust_level_color_tl4: "TL4 稱號文字顏色，預設為紅色。"
+      show_zero_score_rules: "顯示成就點數為 0 的計分規則。預設關閉。"
       gamification_like_received_score: "Gamification score for 收到讚. Keep this aligned with the plugin setting."
       gamification_like_given_score: "Gamification score for 給出讚. Keep this aligned with the plugin setting."
       gamification_solution_score: "Gamification score for 貼文被標記為解決方案. Keep this aligned with the plugin setting."

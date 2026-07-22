@@ -8,6 +8,7 @@ en:
       trust_level_color_tl2: "Text color for TL2 titles."
       trust_level_color_tl3: "Text color for TL3 titles. Default: gold."
       trust_level_color_tl4: "Text color for TL4 titles. Default: red."
+      show_zero_score_rules: "Show Gamification scoring rules whose value is 0."
       gamification_like_received_score: "Gamification score for Like received. Keep this aligned with the plugin setting."
       gamification_like_given_score: "Gamification score for Like given. Keep this aligned with the plugin setting."
       gamification_solution_score: "Gamification score for Post marked as solution. Keep this aligned with the plugin setting."
