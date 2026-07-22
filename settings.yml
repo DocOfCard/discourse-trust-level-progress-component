@@ -12,3 +12,49 @@ trust_level_color_tl3:
   default: "#A68B49"
 trust_level_color_tl4:
   default: "#B87474"
+
+gamification_like_received_score:
+  default: 1
+  type: integer
+gamification_like_given_score:
+  default: 0
+  type: integer
+gamification_solution_score:
+  default: 10
+  type: integer
+gamification_user_invited_score:
+  default: 0
+  type: integer
+gamification_time_read_score:
+  default: 1
+  type: integer
+gamification_post_read_score:
+  default: 1
+  type: integer
+gamification_topic_created_score:
+  default: 5
+  type: integer
+gamification_post_created_score:
+  default: 2
+  type: integer
+gamification_flag_created_score:
+  default: 10
+  type: integer
+gamification_day_visited_score:
+  default: 1
+  type: integer
+gamification_reaction_received_score:
+  default: 1
+  type: integer
+gamification_reaction_given_score:
+  default: 0
+  type: integer
+gamification_chat_reaction_received_score:
+  default: 0
+  type: integer
+gamification_chat_reaction_given_score:
+  default: 0
+  type: integer
+gamification_chat_message_created_score:
+  default: 0
+  type: integer

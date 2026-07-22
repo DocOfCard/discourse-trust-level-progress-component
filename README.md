@@ -100,3 +100,10 @@ Each SVG should have a tightly cropped and consistent `viewBox`.
 
 - Added theme-component color settings for TL0-TL4 post titles.
 - Fixed mobile ordering when a post shows only one user name, keeping the trust-level title after the user name on the same line.
+
+
+## v4.0.2
+
+- Separates Gamification data from the Trust Level card.
+- Adds editable theme settings for Gamification scoring rules.
+- Displays all configured scoring rules directly on the profile page.
