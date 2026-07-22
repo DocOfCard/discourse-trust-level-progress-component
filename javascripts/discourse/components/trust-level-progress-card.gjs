@@ -94,6 +94,7 @@ export default class TrustLevelProgressCard extends Component {
   @tracked data;
   @tracked loading = false;
   @tracked unavailable = false;
+  @tracked gamification;
 
   load = modifier(async () => {
     if (!this.canDisplay || this.loading || this.data || this.unavailable) {
@@ -103,7 +104,24 @@ export default class TrustLevelProgressCard extends Component {
     this.loading = true;
     try {
       this.debug("request:start", { profileUser: this.profileUser?.username });
-      this.data = await ajax("/trust-level-progress/progress.json");
+      const [progressResult, gamificationResult] = await Promise.allSettled([
+        ajax("/trust-level-progress/progress.json"),
+        ajax("/leaderboard/1.json?period=all"),
+      ]);
+
+      if (progressResult.status === "rejected") {
+        throw progressResult.reason;
+      }
+
+      this.data = progressResult.value;
+      if (gamificationResult.status === "fulfilled") {
+        this.gamification = gamificationResult.value;
+      } else {
+        this.debug("gamification:unavailable", {
+          status: gamificationResult.reason?.status,
+        });
+      }
+
       this.debug("request:success", {
         pluginVersion: this.data?.plugin_version,
         currentLevel: this.data?.current_level,
@@ -135,6 +153,30 @@ export default class TrustLevelProgressCard extends Component {
           this.currentUser.username_lower === this.profileUser.username_lower ||
           this.currentUser.username === this.profileUser.username)
     );
+  }
+
+  get achievementPoints() {
+    const score = this.gamification?.personal?.user?.total_score;
+    return Number.isFinite(Number(score)) ? Number(score) : null;
+  }
+
+  get achievementPointsText() {
+    return this.achievementPoints?.toLocaleString() ?? "";
+  }
+
+  get achievementRank() {
+    const rank =
+      this.gamification?.personal?.position ??
+      this.gamification?.personal?.user?.position;
+    return Number.isFinite(Number(rank)) ? Number(rank) : null;
+  }
+
+  get achievementRankText() {
+    return this.achievementRank ? `#${this.achievementRank.toLocaleString()}` : "";
+  }
+
+  get hasGamification() {
+    return this.achievementPoints !== null;
   }
 
   get currentLevel() {
@@ -215,48 +257,68 @@ export default class TrustLevelProgressCard extends Component {
       <div class="trust-level-progress-loader" {{this.load}}>
         {{#if this.data}}
           <section class="trust-level-progress">
-            <div class="trust-level-progress__header">
-              <div>
-                <div class="trust-level-progress__eyebrow">{{text "current_level"}}</div>
-                <h2 class="trust-level-progress__level-name">
-                  {{#if this.currentLevelBadge}}
+            <div class="trust-level-progress__summary">
+              <div class="trust-level-progress__header">
+                <div class="trust-level-progress__identity">
+                  <div class="trust-level-progress__eyebrow">{{text "current_level"}}</div>
+                  <h2 class="trust-level-progress__level-name">
+                    {{#if this.currentLevelBadge}}
+                      <img
+                        class="trust-level-progress__level-icon"
+                        src={{this.currentLevelBadge}}
+                        alt=""
+                      />
+                    {{/if}}
+                    <span>{{levelTitle this.currentLevel}}</span>
+                  </h2>
+                </div>
+                {{#unless this.isMaximumLevel}}
+                  <strong class="trust-level-progress__percent">{{this.overallPercent}}%</strong>
+                {{/unless}}
+              </div>
+
+              {{#if this.isMaximumLevel}}
+                <p class="trust-level-progress__highest">{{text "highest_level"}}</p>
+              {{else}}
+                <div
+                  class="trust-level-progress__bar"
+                  role="progressbar"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                  aria-valuenow={{this.overallPercent}}
+                >
+                  <span style={{this.progressStyle}}></span>
+                </div>
+                <p class="trust-level-progress__next">
+                  <span>{{text "progress_to_label"}}</span>
+                  {{#if this.nextLevelBadge}}
                     <img
-                      class="trust-level-progress__level-icon"
-                      src={{this.currentLevelBadge}}
+                      class="trust-level-progress__level-icon trust-level-progress__level-icon--next"
+                      src={{this.nextLevelBadge}}
                       alt=""
                     />
                   {{/if}}
-                  <span>{{levelTitle this.currentLevel}}</span>
-                </h2>
-              </div>
-              {{#unless this.isMaximumLevel}}
-                <strong>{{this.overallPercent}}%</strong>
-              {{/unless}}
+                  <span class="trust-level-progress__next-name">{{levelTitle this.nextLevel}}</span>
+                </p>
+              {{/if}}
+
+              {{#if this.hasGamification}}
+                <div class="trust-level-progress__achievements">
+                  <div class="trust-level-progress__achievement">
+                    <span class="trust-level-progress__achievement-label">{{text "achievement_points"}}</span>
+                    <strong>{{this.achievementPointsText}}</strong>
+                  </div>
+                  {{#if this.achievementRank}}
+                    <div class="trust-level-progress__achievement">
+                      <span class="trust-level-progress__achievement-label">{{text "achievement_rank"}}</span>
+                      <strong>{{this.achievementRankText}}</strong>
+                    </div>
+                  {{/if}}
+                </div>
+              {{/if}}
             </div>
 
-            {{#if this.isMaximumLevel}}
-              <p>{{text "highest_level"}}</p>
-            {{else}}
-              <div
-                class="trust-level-progress__bar"
-                role="progressbar"
-                aria-valuemin="0"
-                aria-valuemax="100"
-                aria-valuenow={{this.overallPercent}}
-              >
-                <span style={{this.progressStyle}}></span>
-              </div>
-              <p class="trust-level-progress__next">
-                <span>{{text "progress_to_label"}}</span>
-                {{#if this.nextLevelBadge}}
-                  <img
-                    class="trust-level-progress__level-icon trust-level-progress__level-icon--next"
-                    src={{this.nextLevelBadge}}
-                    alt=""
-                  />
-                {{/if}}
-                <span>{{levelTitle this.nextLevel}}</span>
-              </p>
+            {{#unless this.isMaximumLevel}}
 
               {{#if this.isLocked}}
                 <p class="trust-level-progress__warning">{{text "locked"}}</p>
@@ -297,7 +359,7 @@ export default class TrustLevelProgressCard extends Component {
                 <span aria-hidden="true">{{if this.data.requirements.met "✓" "×"}}</span>
                 {{if this.data.requirements.met (text "met") (text "not_met")}}
               </p>
-            {{/if}}
+            {{/unless}}
           </section>
         {{/if}}
       </div>
