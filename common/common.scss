@@ -328,8 +328,8 @@
   }
 
   &__text {
-    line-height: 1.2;
-    vertical-align: baseline;
+    display: block;
+    line-height: 1;
   }
 }
 
