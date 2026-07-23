@@ -1,6 +1,6 @@
 # Discourse Trust Level Progress Component
 
-Version 4.0.5
+Version 4.0.14
 
 This theme component:
 
@@ -63,6 +63,12 @@ assets/badge-tl4.svg
 Each SVG should have a tightly cropped and consistent `viewBox`.
 
 ## Changelog
+
+### 4.0.14
+
+- Removed all failed `/u/trust-level` alias workarounds from the component.
+- Keeps only the normal `/u/:username/trust-level` user subroute.
+- Uses Discourse's built-in `/my/trust-level` current-user alias; no custom redirect code is included.
 
 ### 4.0.0
 
