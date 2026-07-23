@@ -1,6 +1,6 @@
 # Discourse Trust Level Progress Component
 
-Version 4.0.0
+Version 4.0.4
 
 This theme component:
 
@@ -30,7 +30,7 @@ common/common.scss
 ```
 
 - `common/common.scss` contains shared post-title and profile-progress styles.
-- `desktop/desktop.scss` is reserved for desktop-only overrides. The current desktop layout needs no overrides.
+- `desktop/desktop.scss` places the trust-level and achievement cards side by side and allows the value column to wrap.
 - `mobile/mobile.scss` contains the compact progress layout and the mobile username/title wrapping rules.
 
 ## JavaScript structure
@@ -100,3 +100,16 @@ Each SVG should have a tightly cropped and consistent `viewBox`.
 
 - Added theme-component color settings for TL0-TL4 post titles.
 - Fixed mobile ordering when a post shows only one user name, keeping the trust-level title after the user name on the same line.
+
+
+## v4.0.2
+
+- Separates Gamification data from the Trust Level card.
+- Adds editable theme settings for Gamification scoring rules.
+- Displays all configured scoring rules directly on the profile page.
+
+
+## 4.0.3
+
+- Moved trust-level promotion requirements into the trust-level summary card.
+- Added `show_zero_score_rules` (default off) to hide zero-value Gamification rules while preserving the configured rule order.

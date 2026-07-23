@@ -9,6 +9,24 @@ import { i18n } from "discourse-i18n";
 
 const TRUST_LEVEL_KEYS = ["newuser", "basic", "member", "regular", "leader"];
 
+const GAMIFICATION_RULES = [
+  ["like_received", "gamification_like_received_score"],
+  ["like_given", "gamification_like_given_score"],
+  ["solution", "gamification_solution_score"],
+  ["user_invited", "gamification_user_invited_score"],
+  ["time_read", "gamification_time_read_score"],
+  ["post_read", "gamification_post_read_score"],
+  ["topic_created", "gamification_topic_created_score"],
+  ["post_created", "gamification_post_created_score"],
+  ["flag_created", "gamification_flag_created_score"],
+  ["day_visited", "gamification_day_visited_score"],
+  ["reaction_received", "gamification_reaction_received_score"],
+  ["reaction_given", "gamification_reaction_given_score"],
+  ["chat_reaction_received", "gamification_chat_reaction_received_score"],
+  ["chat_reaction_given", "gamification_chat_reaction_given_score"],
+  ["chat_message_created", "gamification_chat_message_created_score"],
+];
+
 function text(key, options = {}) {
   return i18n(themePrefix(`trust_level_progress.${key}`), options);
 }
@@ -179,6 +197,14 @@ export default class TrustLevelProgressCard extends Component {
     return this.achievementPoints !== null;
   }
 
+  get gamificationRules() {
+    return GAMIFICATION_RULES.map(([key, setting]) => ({
+      key,
+      label: text(`gamification_rules.${key}`),
+      value: Number(settings[setting] ?? 0),
+    })).filter((rule) => settings.show_zero_score_rules || rule.value !== 0);
+  }
+
   get currentLevel() {
     return Number(this.data?.current_level ?? this.profileUser?.trust_level ?? 0);
   }
@@ -256,7 +282,7 @@ export default class TrustLevelProgressCard extends Component {
     {{#if (and this.canDisplay (not this.unavailable))}}
       <div class="trust-level-progress-loader" {{this.load}}>
         {{#if this.data}}
-          <section class="trust-level-progress">
+          <section class="trust-level-progress {{if this.hasGamification 'has-gamification'}}">
             <div class="trust-level-progress__summary">
               <div class="trust-level-progress__header">
                 <div class="trust-level-progress__identity">
@@ -302,64 +328,86 @@ export default class TrustLevelProgressCard extends Component {
                 </p>
               {{/if}}
 
-              {{#if this.hasGamification}}
-                <div class="trust-level-progress__achievements">
-                  <div class="trust-level-progress__achievement">
-                    <span class="trust-level-progress__achievement-label">{{text "achievement_points"}}</span>
-                    <strong>{{this.achievementPointsText}}</strong>
-                  </div>
-                  {{#if this.achievementRank}}
-                    <div class="trust-level-progress__achievement">
-                      <span class="trust-level-progress__achievement-label">{{text "achievement_rank"}}</span>
-                      <strong>{{this.achievementRankText}}</strong>
-                    </div>
+              {{#unless this.isMaximumLevel}}
+                <div class="trust-level-progress__requirements">
+                  {{#if this.isLocked}}
+                    <p class="trust-level-progress__warning">{{text "locked"}}</p>
                   {{/if}}
+
+                  {{#if this.isTl3}}
+                    <p class="trust-level-progress__period">
+                      {{text "past_days" count=this.timePeriod}}
+                    </p>
+                  {{/if}}
+
+                  <div class="trust-level-progress__table-wrap">
+                    <table class="trust-level-progress__table">
+                      <thead>
+                        <tr>
+                          <th scope="col">{{text "requirement"}}</th>
+                          <th scope="col" aria-label={{text "status"}}></th>
+                          <th scope="col">{{text "value"}}</th>
+                          <th scope="col">{{text "required"}}</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {{#each this.items as |item|}}
+                          <tr class={{if item.met "is-complete" "is-incomplete"}}>
+                            <th scope="row">{{metricTitle item.key}}</th>
+                            <td class="trust-level-progress__indicator" aria-label={{if item.met (text "complete") (text "incomplete")}}>
+                              {{if item.met "✓" "×"}}
+                            </td>
+                            <td>{{item.currentText}}</td>
+                            <td>{{item.requiredText}}</td>
+                          </tr>
+                        {{/each}}
+                      </tbody>
+                    </table>
+                  </div>
+
+                  <p class="trust-level-progress__status {{if this.data.requirements.met 'is-complete' 'is-incomplete'}}">
+                    <span aria-hidden="true">{{if this.data.requirements.met "✓" "×"}}</span>
+                    {{if this.data.requirements.met (text "met") (text "not_met")}}
+                  </p>
                 </div>
-              {{/if}}
+              {{/unless}}
             </div>
 
-            {{#unless this.isMaximumLevel}}
+            {{#if this.hasGamification}}
+              <section class="trust-level-progress__gamification">
+                <div class="trust-level-progress__gamification-header">
+                  <div>
+                    <div class="trust-level-progress__eyebrow">{{text "achievement_system"}}</div>
+                    <h2>{{text "achievement_points"}}</h2>
+                  </div>
+                  <div class="trust-level-progress__gamification-stats">
+                    <div class="trust-level-progress__gamification-stat">
+                      <span>{{text "achievement_points"}}</span>
+                      <strong>{{this.achievementPointsText}}</strong>
+                    </div>
+                    {{#if this.achievementRank}}
+                      <div class="trust-level-progress__gamification-stat">
+                        <span>{{text "achievement_rank"}}</span>
+                        <strong>{{this.achievementRankText}}</strong>
+                      </div>
+                    {{/if}}
+                  </div>
+                </div>
 
-              {{#if this.isLocked}}
-                <p class="trust-level-progress__warning">{{text "locked"}}</p>
-              {{/if}}
-
-              {{#if this.isTl3}}
-                <p class="trust-level-progress__period">
-                  {{text "past_days" count=this.timePeriod}}
-                </p>
-              {{/if}}
-
-              <div class="trust-level-progress__table-wrap">
-                <table class="trust-level-progress__table">
-                  <thead>
-                    <tr>
-                      <th scope="col">{{text "requirement"}}</th>
-                      <th scope="col" aria-label={{text "status"}}></th>
-                      <th scope="col">{{text "value"}}</th>
-                      <th scope="col">{{text "required"}}</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {{#each this.items as |item|}}
-                      <tr class={{if item.met "is-complete" "is-incomplete"}}>
-                        <th scope="row">{{metricTitle item.key}}</th>
-                        <td class="trust-level-progress__indicator" aria-label={{if item.met (text "complete") (text "incomplete")}}>
-                          {{if item.met "✓" "×"}}
-                        </td>
-                        <td>{{item.currentText}}</td>
-                        <td>{{item.requiredText}}</td>
-                      </tr>
+                <div class="trust-level-progress__rules">
+                  <h3>{{text "achievement_rules"}}</h3>
+                  <div class="trust-level-progress__rules-grid">
+                    {{#each this.gamificationRules as |rule|}}
+                      <div class="trust-level-progress__rule {{if rule.value 'is-active' 'is-disabled'}}">
+                        <span>{{rule.label}}</span>
+                        <strong>+{{rule.value}}</strong>
+                      </div>
                     {{/each}}
-                  </tbody>
-                </table>
-              </div>
+                  </div>
+                </div>
+              </section>
+            {{/if}}
 
-              <p class="trust-level-progress__status {{if this.data.requirements.met 'is-complete' 'is-incomplete'}}">
-                <span aria-hidden="true">{{if this.data.requirements.met "✓" "×"}}</span>
-                {{if this.data.requirements.met (text "met") (text "not_met")}}
-              </p>
-            {{/unless}}
           </section>
         {{/if}}
       </div>

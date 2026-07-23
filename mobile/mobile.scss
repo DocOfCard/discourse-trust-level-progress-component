@@ -82,3 +82,21 @@
 .trust-level-progress__achievement {
   min-width: 0;
 }
+
+
+.trust-level-progress__gamification-header {
+  flex-direction: column;
+}
+
+.trust-level-progress__gamification-stats {
+  width: 100%;
+}
+
+.trust-level-progress__gamification-stat {
+  min-width: 0;
+  flex: 1 1 0;
+}
+
+.trust-level-progress__rules-grid {
+  grid-template-columns: 1fr;
+}

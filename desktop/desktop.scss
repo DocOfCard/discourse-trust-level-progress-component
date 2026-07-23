@@ -1,2 +1,32 @@
-// Desktop uses the shared styles from common/common.scss.
-// No desktop-only overrides are currently required.
+// Keep the trust-level and achievement cards side by side on desktop.
+.trust-level-progress.has-gamification {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(18rem, 3fr);
+  align-items: start;
+  gap: 1rem;
+}
+
+.trust-level-progress.has-gamification .trust-level-progress__gamification {
+  margin-top: 0;
+}
+
+// The value column may wrap so long values do not force the table wider.
+.trust-level-progress__table {
+  th:nth-child(3),
+  td:nth-child(3) {
+    width: 4rem;
+    min-width: 4rem;
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+}
+
+// The narrower achievement card reads better as a single-column rule list.
+.trust-level-progress__gamification-header,
+.trust-level-progress__gamification-stats {
+  flex-wrap: wrap;
+}
+
+.trust-level-progress__rules-grid {
+  grid-template-columns: minmax(0, 1fr);
+}

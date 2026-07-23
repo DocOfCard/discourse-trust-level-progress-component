@@ -223,33 +223,88 @@
   color: var(--primary-medium);
 }
 
-.trust-level-progress__achievements {
+
+.trust-level-progress__gamification {
+  margin-top: 1rem;
+  padding: 1.1rem 1.15rem;
+  border: 1px solid var(--primary-low);
+  border-radius: var(--d-border-radius-large);
+  background: var(--primary-very-low);
+}
+
+.trust-level-progress__gamification-header {
   display: flex;
-  gap: 0.75rem;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+
+  h2 {
+    margin: 0.2rem 0 0;
+    font-size: var(--font-up-2);
+  }
+}
+
+.trust-level-progress__gamification-stats {
+  display: flex;
+  gap: 0.65rem;
+}
+
+.trust-level-progress__gamification-stat {
+  min-width: 7.5rem;
+  padding: 0.55rem 0.7rem;
+  border-radius: var(--d-border-radius);
+  background: var(--secondary);
+  text-align: end;
+
+  span {
+    display: block;
+    color: var(--primary-medium);
+    font-size: var(--font-down-1);
+  }
+
+  strong {
+    display: block;
+    margin-top: 0.15rem;
+    font-size: var(--font-up-1);
+  }
+}
+
+.trust-level-progress__rules {
   margin-top: 1rem;
   padding-top: 0.9rem;
   border-top: 1px solid var(--primary-low);
+
+  h3 {
+    margin: 0 0 0.65rem;
+    font-size: var(--font-0);
+  }
 }
 
-.trust-level-progress__achievement {
+.trust-level-progress__rules-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.5rem;
+}
+
+.trust-level-progress__rule {
   display: flex;
-  min-width: 8.5rem;
-  flex: 1 1 0;
-  align-items: baseline;
+  align-items: center;
   justify-content: space-between;
   gap: 0.75rem;
-  padding: 0.65rem 0.8rem;
+  padding: 0.55rem 0.65rem;
   border-radius: var(--d-border-radius);
   background: var(--secondary);
-}
 
-.trust-level-progress__achievement-label {
-  color: var(--primary-medium);
-  font-size: var(--font-down-1);
-}
+  span {
+    min-width: 0;
+    color: var(--primary-medium);
+  }
 
-.trust-level-progress__achievement strong {
-  color: var(--primary);
-  font-size: var(--font-up-1);
-  white-space: nowrap;
+  strong {
+    white-space: nowrap;
+  }
+
+  &.is-disabled {
+    opacity: 0.55;
+  }
 }
