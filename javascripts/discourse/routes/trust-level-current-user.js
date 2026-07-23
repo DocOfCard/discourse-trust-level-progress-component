@@ -6,15 +6,18 @@ export default class TrustLevelCurrentUserRoute extends DiscourseRoute {
 
   beforeModel() {
     if (!this.currentUser) {
-      window.location.assign(
+      window.location.replace(
         `/login?redirect=${encodeURIComponent("/u/trust-level")}`
       );
       return;
     }
 
-    this.replaceWith(
-      "user.trust-level",
-      this.currentUser.username_lower || this.currentUser.username
-    );
+    const username =
+      this.currentUser.username_lower || this.currentUser.username;
+
+    // Use a real browser navigation instead of an Ember transition. `/u/trust-level`
+    // overlaps with Discourse's `/u/:username` route, so an Ember transition can
+    // leave the user model bound to the literal username "trust-level".
+    window.location.replace(`/u/${encodeURIComponent(username)}/trust-level`);
   }
 }
