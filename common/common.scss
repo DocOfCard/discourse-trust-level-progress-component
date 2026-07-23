@@ -325,11 +325,12 @@
     height: 0.7em;
     flex: 0 0 0.7em;
     object-fit: contain;
+    transform: translateY(-0.035em);
   }
 
   &__text {
-    display: block;
-    line-height: 1;
+    line-height: 1.2;
+    vertical-align: baseline;
   }
 }
 
