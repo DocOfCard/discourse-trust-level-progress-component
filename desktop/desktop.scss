@@ -10,23 +10,35 @@
   margin-top: 0;
 }
 
-// The value column may wrap so long values do not force the table wider.
+// Let the value column shrink when needed, but use available room before wrapping.
 .trust-level-progress__table {
   th:nth-child(3),
   td:nth-child(3) {
-    width: 4rem;
+    width: 18%;
     min-width: 4rem;
     white-space: normal;
     overflow-wrap: anywhere;
   }
 }
 
-// The narrower achievement card reads better as a single-column rule list.
-.trust-level-progress__gamification-header,
-.trust-level-progress__gamification-stats {
-  flex-wrap: wrap;
+// In the narrow right-hand card, keep the heading above two equal-width stats.
+.trust-level-progress__gamification-header {
+  display: block;
 }
 
+.trust-level-progress__gamification-stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.65rem;
+  margin-top: 0.9rem;
+}
+
+.trust-level-progress__gamification-stat {
+  min-width: 0;
+  text-align: center;
+}
+
+// The narrower achievement card reads better as a single-column rule list.
 .trust-level-progress__rules-grid {
   grid-template-columns: minmax(0, 1fr);
 }
