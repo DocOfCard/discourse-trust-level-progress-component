@@ -20,6 +20,7 @@
   height: 1.1em;
   flex: 0 0 1.1em;
   object-fit: contain;
+  transform: translateY(-0.05em);
 }
 
 .topic-post .names .trust-level-title-on-post--tl0 { color: $trust_level_color_tl0; }
