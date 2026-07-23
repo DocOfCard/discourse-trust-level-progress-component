@@ -308,3 +308,26 @@
     opacity: 0.55;
   }
 }
+
+// Inline trust-level icons used in cooked post content:
+// [tl=3] and [tl=3 text]
+.trust-level-inline {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.28em;
+  vertical-align: -0.16em;
+  white-space: nowrap;
+  line-height: 1;
+
+  &__icon {
+    display: block;
+    width: 1.2em;
+    height: 1.2em;
+    object-fit: contain;
+  }
+
+  &__text {
+    line-height: 1.2;
+    vertical-align: baseline;
+  }
+}

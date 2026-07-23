@@ -1,6 +1,6 @@
 # Discourse Trust Level Progress Component
 
-Version 4.0.14
+Version 4.0.15
 
 This theme component:
 
@@ -64,7 +64,7 @@ Each SVG should have a tightly cropped and consistent `viewBox`.
 
 ## Changelog
 
-### 4.0.14
+### 4.0.15
 
 - Removed all failed `/u/trust-level` alias workarounds from the component.
 - Keeps only the normal `/u/:username/trust-level` user subroute.
@@ -119,3 +119,24 @@ Each SVG should have a tightly cropped and consistent `viewBox`.
 
 - Moved trust-level promotion requirements into the trust-level summary card.
 - Added `show_zero_score_rules` (default off) to hide zero-value Gamification rules while preserving the configured rule order.
+
+
+## 帖子内引用信任等级图标
+
+在帖子正文中可直接使用：
+
+```text
+[tl=0]
+[tl=1]
+[tl=2]
+[tl=3]
+[tl=4]
+```
+
+以上语法只显示对应等级的 SVG 图标。需要同时显示当前站点语言中的信任等级名称时，使用：
+
+```text
+[tl=3 text]
+```
+
+代码块、行内代码和链接中的相同文本不会被转换。
