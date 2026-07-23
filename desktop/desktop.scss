@@ -10,14 +10,26 @@
   margin-top: 0;
 }
 
-// Let the value column shrink when needed, but use available room before wrapping.
+// Give the value column a useful share of the available desktop width.
+// It may still wrap when the card becomes narrow, but it is no longer held
+// near its minimum width while space is available.
 .trust-level-progress__table {
+  tbody th:first-child {
+    width: 44%;
+  }
+
   th:nth-child(3),
   td:nth-child(3) {
-    width: 18%;
-    min-width: 4rem;
+    width: 30%;
+    min-width: 7rem;
     white-space: normal;
-    overflow-wrap: anywhere;
+    overflow-wrap: normal;
+    word-break: normal;
+  }
+
+  th:nth-child(4),
+  td:nth-child(4) {
+    width: 20%;
   }
 }
 
