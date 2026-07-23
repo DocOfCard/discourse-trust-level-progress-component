@@ -315,14 +315,15 @@
   display: inline-flex;
   align-items: center;
   gap: 0.28em;
-  vertical-align: -0.16em;
+  vertical-align: -0.12em;
   white-space: nowrap;
   line-height: 1;
 
   &__icon {
     display: block;
-    width: 1.2em;
-    height: 1.2em;
+    width: 1.1em;
+    height: 1.1em;
+    flex: 0 0 1.1em;
     object-fit: contain;
   }
 
@@ -331,3 +332,9 @@
     vertical-align: baseline;
   }
 }
+
+.trust-level-inline--tl0 { color: $trust_level_color_tl0; }
+.trust-level-inline--tl1 { color: $trust_level_color_tl1; }
+.trust-level-inline--tl2 { color: $trust_level_color_tl2; }
+.trust-level-inline--tl3 { color: $trust_level_color_tl3; }
+.trust-level-inline--tl4 { color: $trust_level_color_tl4; }
