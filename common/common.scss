@@ -330,8 +330,8 @@
   }
 
   &__text {
-    line-height: 1;
-    vertical-align: baseline;
+    line-height: 1.2;
+    transform: translateY(0.04em);
   }
 }
 
