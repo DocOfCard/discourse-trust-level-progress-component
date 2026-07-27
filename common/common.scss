@@ -23,6 +23,10 @@
 //  transform: translateY(-0.04em);
 }
 
+.topic-post .names .trust-level-title-on-post__text {
+  transform: translateY(0.06em);
+}
+
 .topic-post .names .trust-level-title-on-post--tl0 { color: $trust_level_color_tl0; }
 .topic-post .names .trust-level-title-on-post--tl1 { color: $trust_level_color_tl1; }
 .topic-post .names .trust-level-title-on-post--tl2 { color: $trust_level_color_tl2; }
