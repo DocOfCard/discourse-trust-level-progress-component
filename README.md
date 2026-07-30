@@ -1,6 +1,6 @@
 # Discourse Trust Level Progress Component
 
-Version 4.0.18
+Version 4.0.19
 
 This theme component:
 
@@ -63,6 +63,10 @@ assets/badge-tl4.svg
 Each SVG should have a tightly cropped and consistent `viewBox`.
 
 ## Changelog
+
+### 4.0.19
+
+- Corrected the poster-name trust-level icon vertical position to match the inline `[tl=x text]` rendering.
 
 ### 4.0.18
 
