@@ -9,9 +9,10 @@
   border-radius: 0;
   background: transparent;
   box-shadow: none;
-  line-height: inherit;
+  line-height: 1;
   white-space: nowrap;
   font-weight: 500;
+  vertical-align: middle;
 }
 
 .topic-post .names .trust-level-title-on-post__icon {
@@ -20,11 +21,12 @@
   height: 1.1em;
   flex: 0 0 1.1em;
   object-fit: contain;
-//  transform: translateY(-0.04em);
+  transform: translateY(0.06em);
 }
 
 .topic-post .names .trust-level-title-on-post__text {
-  transform: translateY(0.04em);
+  display: block;
+  line-height: 1.2;
 }
 
 .topic-post .names .trust-level-title-on-post--tl0 { color: $trust_level_color_tl0; }
@@ -330,12 +332,12 @@
     height: 0.7em;
     flex: 0 0 0.7em;
     object-fit: contain;
-//    transform: translateY(-0.04em);
+    transform: translateY(-0.05em);
   }
 
   &__text {
+    display: block;
     line-height: 1.2;
-    transform: translateY(0.06em);
   }
 }
 

@@ -1,6 +1,6 @@
 # Discourse Trust Level Progress Component
 
-Version 4.0.15
+Version 4.0.18
 
 This theme component:
 
@@ -63,6 +63,12 @@ assets/badge-tl4.svg
 Each SVG should have a tightly cropped and consistent `viewBox`.
 
 ## Changelog
+
+### 4.0.18
+
+- Corrected vertical alignment for trust-level titles shown after poster names.
+- Keeps title text on its natural line box and applies visual offset only to the badge icon.
+- Applies the same alignment correction to inline `[tl=0 text]` through `[tl=4 text]` badges in cooked post content.
 
 ### 4.0.15
 
