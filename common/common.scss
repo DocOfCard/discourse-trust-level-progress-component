@@ -52,6 +52,19 @@
 .topic-post .names .trust-level-title-on-post--tl3 { color: $trust_level_color_tl3; }
 .topic-post .names .trust-level-title-on-post--tl4 { color: $trust_level_color_tl4; }
 
+// Discourse normally renders `.user-title` smaller and may assign its own
+// muted color. The generated native trust-level title should instead match the
+// poster name size and continue to use the TL0-TL4 colors configured above.
+.topic-post .names .user-title.trust-level-title-on-post--native {
+  font-size: var(--font-up-1);
+}
+
+.topic-post .names .user-title.trust-level-title-on-post--native.trust-level-title-on-post--tl0 { color: $trust_level_color_tl0; }
+.topic-post .names .user-title.trust-level-title-on-post--native.trust-level-title-on-post--tl1 { color: $trust_level_color_tl1; }
+.topic-post .names .user-title.trust-level-title-on-post--native.trust-level-title-on-post--tl2 { color: $trust_level_color_tl2; }
+.topic-post .names .user-title.trust-level-title-on-post--native.trust-level-title-on-post--tl3 { color: $trust_level_color_tl3; }
+.topic-post .names .user-title.trust-level-title-on-post--native.trust-level-title-on-post--tl4 { color: $trust_level_color_tl4; }
+
 .trust-level-progress {
   box-sizing: border-box;
   width: 100%;
