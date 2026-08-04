@@ -1,5 +1,7 @@
-// Native title fallback works without the companion API plugin.
-// It removes theme-added frames and uses the existing title text as the tooltip.
+// Native title cleanup works without the companion API plugin.
+// Apply directly to Discourse's real title element so installed themes cannot
+// reintroduce a frame when serializer metadata is unavailable.
+.topic-post .names .user-title,
 .topic-post .names .user-title.trust-level-native-title-enhanced {
   display: inline !important;
   padding: 0 !important;
@@ -11,9 +13,13 @@
   box-shadow: none !important;
 }
 
-.topic-post .names .user-title.trust-level-native-title-enhanced::before,
-.topic-post .names .user-title.trust-level-native-title-enhanced::after {
+.topic-post .names .user-title::before,
+.topic-post .names .user-title::after,
+.topic-post .names .user-title > *,
+.topic-post .names .user-title > *::before,
+.topic-post .names .user-title > *::after {
   border: 0 !important;
+  border-radius: 0 !important;
   background: transparent !important;
   box-shadow: none !important;
 }

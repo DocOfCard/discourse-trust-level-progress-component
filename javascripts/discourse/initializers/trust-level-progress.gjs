@@ -116,6 +116,7 @@ function addNativeTitleTooltips(root = document) {
     }
 
     element.title = label;
+    element.dataset.trustLevelNativeTitle = "true";
     if (!element.hasAttribute("aria-label")) {
       element.setAttribute("aria-label", label);
     }

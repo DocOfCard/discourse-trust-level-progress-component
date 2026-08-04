@@ -105,6 +105,7 @@ export default class TrustLevelTitle extends Component {
     {{#if this.enabled}}
       <span
         class="trust-level-title-display"
+        data-trust-level-title-display
         {{this.enhanceNativeTitle}}
       >
         {{#if this.hasNativeBadgeVisual}}

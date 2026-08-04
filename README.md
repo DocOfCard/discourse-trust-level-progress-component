@@ -1,5 +1,15 @@
 # Discourse Trust Level Progress Component
 
+## v4.1.9 (2026-08-04)
+
+- 保留 Discourse 官方只能选择一个徽章作为头衔的设置与保存逻辑。
+- 只安装组件时，也直接为官方 `.user-title` 去除外框、背景、圆角和阴影，并使用现有头衔文字提供 hover 提示。
+- 安装配套 API v2.2.0 后，将官方头衔文字替换为后台已有的自定义图片或图标，并使用徽章说明或名称作为 hover。
+- 固定等级徽章继续由组件自动显示在官方头衔徽章之后，显示等级图标和等级名称。
+- 不新增徽章选择页面、不新增用户字段、不改变官方单头衔限制。
+
+---
+
 ## v4.1.8 (2026-08-04)
 
 - 修复：移除已不存在的 `discourse/components/d-icon` 导入，改用当前 Discourse 的 `discourse/ui-kit/helpers/d-icon`。
