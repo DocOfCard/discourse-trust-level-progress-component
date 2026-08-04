@@ -1,35 +1,55 @@
-// Trust-level title controller used to decorate native titles with hover text.
-.topic-post .names .trust-level-title-controller {
-  display: none;
+// Keep Discourse's native single-title selection, but replace its text
+// with the selected badge image/icon and append the fixed trust-level badge.
+.topic-post .names > .user-title.trust-level-native-title-replaced {
+  display: none !important;
 }
 
-// Native and custom trust-level titles share the same compact layout.
+.topic-post .names .trust-level-title-display {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.34em;
+  min-width: 0;
+  margin-right: 0.33em;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.topic-post .names .trust-level-native-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.1em;
+  height: 1.1em;
+  flex: 0 0 1.1em;
+  line-height: 1;
+}
+
+.topic-post .names .trust-level-native-badge__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.topic-post .names .trust-level-native-badge__icon.d-icon {
+  width: 1em;
+  height: 1em;
+  font-size: 1em;
+}
+
 .topic-post .names .trust-level-title-on-post {
   display: inline-flex;
   align-items: center;
   gap: 0.32em;
-  margin-right: 0.33em;
+  min-width: 0;
   padding: 0;
   border: 0;
-  border-radius: 0;
   background: transparent;
   box-shadow: none;
+  font-size: calc(var(--font-up-1) - 1px);
+  font-weight: 500;
   line-height: 1;
   white-space: nowrap;
-  font-weight: 500;
-  vertical-align: middle;
-}
-
-
-// Keep every native title beside post authors borderless and transparent.
-// The connector supplies a browser tooltip containing the title name when one
-// is not already provided by Discourse or another component.
-.topic-post .names .user-title {
-  padding: 0;
-  border: 0;
-  border-radius: 0;
-  background: transparent;
-  box-shadow: none;
 }
 
 .topic-post .names .trust-level-title-on-post__icon {
@@ -43,32 +63,20 @@
 
 .topic-post .names .trust-level-title-on-post__text {
   display: block;
+  min-width: 0;
   line-height: 1.2;
 }
 
-.topic-post .names .trust-level-title-on-post--tl0 { color: $trust_level_color_tl0; }
-.topic-post .names .trust-level-title-on-post--tl1 { color: $trust_level_color_tl1; }
-.topic-post .names .trust-level-title-on-post--tl2 { color: $trust_level_color_tl2; }
-.topic-post .names .trust-level-title-on-post--tl3 { color: $trust_level_color_tl3; }
-.topic-post .names .trust-level-title-on-post--tl4 { color: $trust_level_color_tl4; }
-
-// Discourse and installed themes may render `.user-title` smaller or override
-// its color. Keep the generated native trust-level title just below the poster
-// name size, and force both the wrapper and text to use the configured TL color.
-.topic-post .names .user-title.trust-level-title-on-post--native {
-  font-size: calc(var(--font-up-1) - 1px);
-}
-
-.topic-post .names .user-title.trust-level-title-on-post--native.trust-level-title-on-post--tl0,
-.topic-post .names .user-title.trust-level-title-on-post--native.trust-level-title-on-post--tl0 .trust-level-title-on-post__text { color: $trust_level_color_tl0 !important; }
-.topic-post .names .user-title.trust-level-title-on-post--native.trust-level-title-on-post--tl1,
-.topic-post .names .user-title.trust-level-title-on-post--native.trust-level-title-on-post--tl1 .trust-level-title-on-post__text { color: $trust_level_color_tl1 !important; }
-.topic-post .names .user-title.trust-level-title-on-post--native.trust-level-title-on-post--tl2,
-.topic-post .names .user-title.trust-level-title-on-post--native.trust-level-title-on-post--tl2 .trust-level-title-on-post__text { color: $trust_level_color_tl2 !important; }
-.topic-post .names .user-title.trust-level-title-on-post--native.trust-level-title-on-post--tl3,
-.topic-post .names .user-title.trust-level-title-on-post--native.trust-level-title-on-post--tl3 .trust-level-title-on-post__text { color: $trust_level_color_tl3 !important; }
-.topic-post .names .user-title.trust-level-title-on-post--native.trust-level-title-on-post--tl4,
-.topic-post .names .user-title.trust-level-title-on-post--native.trust-level-title-on-post--tl4 .trust-level-title-on-post__text { color: $trust_level_color_tl4 !important; }
+.topic-post .names .trust-level-title-on-post--tl0,
+.topic-post .names .trust-level-title-on-post--tl0 .trust-level-title-on-post__text { color: $trust_level_color_tl0 !important; }
+.topic-post .names .trust-level-title-on-post--tl1,
+.topic-post .names .trust-level-title-on-post--tl1 .trust-level-title-on-post__text { color: $trust_level_color_tl1 !important; }
+.topic-post .names .trust-level-title-on-post--tl2,
+.topic-post .names .trust-level-title-on-post--tl2 .trust-level-title-on-post__text { color: $trust_level_color_tl2 !important; }
+.topic-post .names .trust-level-title-on-post--tl3,
+.topic-post .names .trust-level-title-on-post--tl3 .trust-level-title-on-post__text { color: $trust_level_color_tl3 !important; }
+.topic-post .names .trust-level-title-on-post--tl4,
+.topic-post .names .trust-level-title-on-post--tl4 .trust-level-title-on-post__text { color: $trust_level_color_tl4 !important; }
 
 .trust-level-progress {
   box-sizing: border-box;

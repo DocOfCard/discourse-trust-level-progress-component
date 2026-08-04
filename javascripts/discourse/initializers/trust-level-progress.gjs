@@ -99,6 +99,7 @@ function replaceInlineTrustLevels(element) {
 export default apiInitializer((api) => {
   if (settings.show_title_on_posts) {
     api.addTrackedPostProperties("trust_level");
+    api.addTrackedPostProperties("title_badge");
   }
 
   api.decorateCookedElement(replaceInlineTrustLevels, {

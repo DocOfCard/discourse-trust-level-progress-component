@@ -1,18 +1,18 @@
 import Component from "@glimmer/component";
-import { service } from "@ember/service";
 import { modifier } from "ember-modifier";
-import { and } from "discourse/truth-helpers";
+import DIcon from "discourse/components/d-icon";
 import { i18n } from "discourse-i18n";
 
 const TRUST_LEVEL_KEYS = ["newuser", "basic", "member", "regular", "leader"];
 
 export default class TrustLevelTitle extends Component {
-  @service site;
+  get post() {
+    return this.args.outletArgs?.post;
+  }
 
   get level() {
     const level = Number(
-      this.args.outletArgs?.post?.trust_level ??
-        this.args.outletArgs?.user?.trust_level
+      this.post?.trust_level ?? this.args.outletArgs?.user?.trust_level
     );
 
     return Number.isInteger(level) && level >= 0 && level <= 4 ? level : null;
@@ -23,128 +23,92 @@ export default class TrustLevelTitle extends Component {
     return key ? i18n(`trust_levels.names.${key}`) : null;
   }
 
-  get badge() {
+  get levelBadge() {
     return settings.theme_uploads?.[`badge_tl${this.level}`];
   }
 
-  get customTitleEnabled() {
-    return (
-      settings.show_title_on_posts &&
-      settings.show_custom_trust_level_title &&
-      !settings.show_native_trust_level_title
-    );
+  get nativeBadge() {
+    return this.post?.title_badge || null;
   }
 
-  get nativeTitleEnabled() {
-    return (
-      settings.show_title_on_posts && settings.show_native_trust_level_title
-    );
+  get enabled() {
+    return settings.show_title_on_posts && this.title;
   }
 
-  decorateNativeTitles = modifier((element) => {
+  get nativeBadgeTooltip() {
+    return this.nativeBadge?.description || this.nativeBadge?.name;
+  }
+
+  replaceNativeTitle = modifier((element) => {
+    if (!this.nativeBadge) {
+      return;
+    }
+
     const names = element.closest(".names");
-
     if (!names) {
       return;
     }
 
-    const decorated = [];
+    const nativeTitle = [...names.querySelectorAll(":scope > .user-title")].find(
+      (title) => !title.classList.contains("trust-level-title-on-post")
+    );
 
-    for (const title of names.querySelectorAll(".user-title")) {
-      if (!title.hasAttribute("title")) {
-        const label = title.textContent?.trim();
-
-        if (label) {
-          title.setAttribute("title", label);
-          decorated.push(title);
-        }
-      }
-    }
-
-    return () => {
-      for (const title of decorated) {
-        title.removeAttribute("title");
-      }
-    };
-  });
-
-  mobileUserRow = modifier((titleElement, [mobileView]) => {
-    if (!mobileView) {
+    if (!nativeTitle) {
       return;
     }
 
-    const names = titleElement.closest(".names");
-    const username = names?.querySelector(":scope > .second");
-
-    if (!names || !username) {
-      return;
-    }
-
-    let row = names.querySelector(":scope > .trust-level-user-row");
-
-    if (!row) {
-      row = document.createElement("span");
-      row.className = "trust-level-user-row";
-      names.insertBefore(row, username);
-    }
-
-    row.append(username, titleElement);
+    nativeTitle.classList.add("trust-level-native-title-replaced");
+    nativeTitle.setAttribute("aria-hidden", "true");
 
     return () => {
-      if (!names.isConnected || !row.isConnected) {
-        return;
-      }
-
-      if (username.isConnected) {
-        names.insertBefore(username, row);
-      }
-
-      if (titleElement.isConnected) {
-        names.insertBefore(titleElement, row);
-      }
-
-      row.remove();
+      nativeTitle.classList.remove("trust-level-native-title-replaced");
+      nativeTitle.removeAttribute("aria-hidden");
     };
   });
 
   <template>
     {{yield}}
 
-    <span
-      class="trust-level-title-controller"
-      aria-hidden="true"
-      {{this.decorateNativeTitles}}
-    ></span>
+    {{#if this.enabled}}
+      <span
+        class="trust-level-title-display"
+        {{this.replaceNativeTitle}}
+      >
+        {{#if this.nativeBadge}}
+          <span
+            class="trust-level-native-badge"
+            title={{this.nativeBadgeTooltip}}
+            aria-label={{this.nativeBadge.name}}
+          >
+            {{#if this.nativeBadge.image_url}}
+              <img
+                class="trust-level-native-badge__image"
+                src={{this.nativeBadge.image_url}}
+                alt=""
+                loading="lazy"
+              />
+            {{else if this.nativeBadge.icon}}
+              <DIcon
+                @icon={{this.nativeBadge.icon}}
+                class="trust-level-native-badge__icon"
+              />
+            {{/if}}
+          </span>
+        {{/if}}
 
-    {{#if (and this.nativeTitleEnabled this.title)}}
-      <span
-        class="user-title trust-level-title-on-post trust-level-title-on-post--native trust-level-title-on-post--tl{{this.level}}"
-        title={{this.title}}
-        {{this.mobileUserRow this.site.mobileView}}
-      >
-        {{#if this.badge}}
-          <img
-            class="trust-level-title-on-post__icon"
-            src={{this.badge}}
-            alt=""
-          />
-        {{/if}}
-        <span class="trust-level-title-on-post__text">{{this.title}}</span>
-      </span>
-    {{else if (and this.customTitleEnabled this.title)}}
-      <span
-        class="trust-level-title-on-post trust-level-title-on-post--custom trust-level-title-on-post--tl{{this.level}}"
-        title={{this.title}}
-        {{this.mobileUserRow this.site.mobileView}}
-      >
-        {{#if this.badge}}
-          <img
-            class="trust-level-title-on-post__icon"
-            src={{this.badge}}
-            alt=""
-          />
-        {{/if}}
-        <span class="trust-level-title-on-post__text">{{this.title}}</span>
+        <span
+          class="trust-level-title-on-post trust-level-title-on-post--tl{{this.level}}"
+          title={{this.title}}
+        >
+          {{#if this.levelBadge}}
+            <img
+              class="trust-level-title-on-post__icon"
+              src={{this.levelBadge}}
+              alt=""
+            />
+          {{/if}}
+          <span class="trust-level-title-on-post__text">{{this.title}}</span>
+        </span>
       </span>
     {{/if}}
   </template>
