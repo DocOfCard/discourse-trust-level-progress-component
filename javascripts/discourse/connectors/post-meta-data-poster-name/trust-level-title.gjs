@@ -39,11 +39,7 @@ export default class TrustLevelTitle extends Component {
     return this.nativeBadge?.description || this.nativeBadge?.name;
   }
 
-  replaceNativeTitle = modifier((element) => {
-    if (!this.nativeBadge) {
-      return;
-    }
-
+  enhanceNativeTitle = modifier((element) => {
     const names = element.closest(".names");
     if (!names) {
       return;
@@ -57,12 +53,30 @@ export default class TrustLevelTitle extends Component {
       return;
     }
 
-    nativeTitle.classList.add("trust-level-native-title-replaced");
-    nativeTitle.setAttribute("aria-hidden", "true");
+    const fallbackTooltip = nativeTitle.textContent?.trim();
+    const previousTitle = nativeTitle.getAttribute("title");
+
+    nativeTitle.classList.add("trust-level-native-title-enhanced");
+
+    if (!previousTitle && fallbackTooltip) {
+      nativeTitle.setAttribute("title", fallbackTooltip);
+    }
+
+    if (this.nativeBadge) {
+      nativeTitle.classList.add("trust-level-native-title-replaced");
+      nativeTitle.setAttribute("aria-hidden", "true");
+    }
 
     return () => {
-      nativeTitle.classList.remove("trust-level-native-title-replaced");
+      nativeTitle.classList.remove(
+        "trust-level-native-title-enhanced",
+        "trust-level-native-title-replaced"
+      );
       nativeTitle.removeAttribute("aria-hidden");
+
+      if (!previousTitle) {
+        nativeTitle.removeAttribute("title");
+      }
     };
   });
 
@@ -72,7 +86,7 @@ export default class TrustLevelTitle extends Component {
     {{#if this.enabled}}
       <span
         class="trust-level-title-display"
-        {{this.replaceNativeTitle}}
+        {{this.enhanceNativeTitle}}
       >
         {{#if this.nativeBadge}}
           <span

@@ -1,3 +1,21 @@
+// Native title fallback works without the companion API plugin.
+// It removes theme-added frames and uses the existing title text as the tooltip.
+.topic-post .names > .user-title.trust-level-native-title-enhanced {
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  outline: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.topic-post .names > .user-title.trust-level-native-title-enhanced::before,
+.topic-post .names > .user-title.trust-level-native-title-enhanced::after {
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
 // Keep Discourse's native single-title selection, but replace its text
 // with the selected badge image/icon and append the fixed trust-level badge.
 .topic-post .names > .user-title.trust-level-native-title-replaced {

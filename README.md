@@ -1,5 +1,14 @@
 # Discourse Trust Level Progress Component
 
+## v4.1.5 (2026-08-04)
+
+- 即使未更新配套 API 插件，也会为官方原生头衔添加鼠标悬停名称提示。
+- 即使未更新配套 API 插件，也会强制移除官方头衔的边框、背景、圆角和阴影。
+- 配套 API 插件仍只负责提供官方徽章的后台图标或自定义图片数据；有该数据时继续以图片/图标替换头衔文字。
+- 修正 `about.json` 中版本字段不一致的问题。
+
+---
+
 ## v4.1.4 (2026-08-04)
 
 - 保留 Discourse 官方仅选择一个徽章作为头衔的设置与流程。
@@ -74,6 +83,13 @@ assets/badge-tl4.svg
 Each SVG should have a tightly cropped and consistent `viewBox`.
 
 ## Changelog
+
+### 4.1.5
+
+- Native title hover and frame removal now work without the companion API plugin.
+- The existing native title text is used as a fallback tooltip.
+- Badge image/icon replacement still activates when the API plugin supplies badge metadata.
+- Synchronized both version fields in `about.json`.
 
 ### 4.1.3
 
