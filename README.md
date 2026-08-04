@@ -1,6 +1,6 @@
 # Discourse Trust Level Progress Component
 
-Version 4.1.2
+Version 4.1.3
 
 This theme component:
 
@@ -63,6 +63,12 @@ assets/badge-tl4.svg
 Each SVG should have a tightly cropped and consistent `viewBox`.
 
 ## Changelog
+
+### 4.1.3
+
+- Reduced the native-style automatic trust-level title size by approximately 1px for better visual balance beside the poster name.
+- Increased color rule priority and applied the configured TL0-TL4 color directly to both the native title wrapper and text, preventing installed themes from overriding it.
+- Preserved the complete existing changelog.
 
 ### 4.1.2
 
