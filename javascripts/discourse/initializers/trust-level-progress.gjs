@@ -96,6 +96,32 @@ function replaceInlineTrustLevels(element) {
   }
 }
 
+function addNativeTitleTooltips(root = document) {
+  const titles = [];
+
+  if (root instanceof Element && root.matches(".user-title")) {
+    titles.push(root);
+  }
+
+  if (root.querySelectorAll) {
+    titles.push(...root.querySelectorAll(".user-title"));
+  }
+
+  for (const element of titles) {
+    const existing = element.getAttribute("title")?.trim();
+    const label = existing || element.textContent?.trim();
+
+    if (!label) {
+      continue;
+    }
+
+    element.title = label;
+    if (!element.hasAttribute("aria-label")) {
+      element.setAttribute("aria-label", label);
+    }
+  }
+}
+
 export default apiInitializer((api) => {
   if (settings.show_title_on_posts) {
     api.addTrackedPostProperties("trust_level");
@@ -105,4 +131,18 @@ export default apiInitializer((api) => {
   api.decorateCookedElement(replaceInlineTrustLevels, {
     id: "trust-level-inline-icons",
   });
+
+  addNativeTitleTooltips();
+
+  const observer = new MutationObserver((mutations) => {
+    for (const mutation of mutations) {
+      for (const node of mutation.addedNodes) {
+        if (node instanceof Element) {
+          addNativeTitleTooltips(node);
+        }
+      }
+    }
+  });
+
+  observer.observe(document.body, { childList: true, subtree: true });
 });

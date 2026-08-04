@@ -409,3 +409,28 @@
 .trust-level-inline--tl2 { color: $trust_level_color_tl2; }
 .trust-level-inline--tl3 { color: $trust_level_color_tl3; }
 .trust-level-inline--tl4 { color: $trust_level_color_tl4; }
+
+// Keep every native title visually lightweight, even when the companion API
+// plugin is not installed. These rules intentionally override theme frames.
+.topic-post .names .user-title,
+.topic-post .names [class*="user-title"],
+.user-card .user-title,
+.user-profile .user-title {
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  outline: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.topic-post .names .user-title::before,
+.topic-post .names .user-title::after,
+.user-card .user-title::before,
+.user-card .user-title::after,
+.user-profile .user-title::before,
+.user-profile .user-title::after {
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
