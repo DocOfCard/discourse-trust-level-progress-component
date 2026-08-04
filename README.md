@@ -1,6 +1,6 @@
 # Discourse Trust Level Progress Component
 
-Version 4.0.19
+Version 4.1.1
 
 This theme component:
 
@@ -63,6 +63,14 @@ assets/badge-tl4.svg
 Each SVG should have a tightly cropped and consistent `viewBox`.
 
 ## Changelog
+
+### 4.1.1
+
+- Added separate settings for the component custom trust-level title and the native-style automatic trust-level title.
+- The native-style title is enabled by default and takes priority when both settings are enabled, preventing duplicates.
+- Native-style automatic trust-level titles keep the TL0-TL4 icon, require no manual user title selection, and render without a frame.
+- Added hover text for generated trust-level titles and existing native titles beside post authors when no tooltip already exists.
+- Preserved the complete existing changelog from v4.0.19 and earlier.
 
 ### 4.0.19
 

@@ -1,4 +1,9 @@
-// Native poster-name connector. Independent from .user-title theme styling.
+// Trust-level title controller used to decorate native titles with hover text.
+.topic-post .names .trust-level-title-controller {
+  display: none;
+}
+
+// Native and custom trust-level titles share the same compact layout.
 .topic-post .names .trust-level-title-on-post {
   display: inline-flex;
   align-items: center;
@@ -13,6 +18,18 @@
   white-space: nowrap;
   font-weight: 500;
   vertical-align: middle;
+}
+
+
+// Keep every native title beside post authors borderless and transparent.
+// The connector supplies a browser tooltip containing the title name when one
+// is not already provided by Discourse or another component.
+.topic-post .names .user-title {
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
 }
 
 .topic-post .names .trust-level-title-on-post__icon {

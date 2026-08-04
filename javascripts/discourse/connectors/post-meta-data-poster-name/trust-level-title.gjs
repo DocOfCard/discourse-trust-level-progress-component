@@ -27,9 +27,46 @@ export default class TrustLevelTitle extends Component {
     return settings.theme_uploads?.[`badge_tl${this.level}`];
   }
 
-  get enabled() {
-    return settings.show_title_on_posts;
+  get customTitleEnabled() {
+    return (
+      settings.show_title_on_posts &&
+      settings.show_custom_trust_level_title &&
+      !settings.show_native_trust_level_title
+    );
   }
+
+  get nativeTitleEnabled() {
+    return (
+      settings.show_title_on_posts && settings.show_native_trust_level_title
+    );
+  }
+
+  decorateNativeTitles = modifier((element) => {
+    const names = element.closest(".names");
+
+    if (!names) {
+      return;
+    }
+
+    const decorated = [];
+
+    for (const title of names.querySelectorAll(".user-title")) {
+      if (!title.hasAttribute("title")) {
+        const label = title.textContent?.trim();
+
+        if (label) {
+          title.setAttribute("title", label);
+          decorated.push(title);
+        }
+      }
+    }
+
+    return () => {
+      for (const title of decorated) {
+        title.removeAttribute("title");
+      }
+    };
+  });
 
   mobileUserRow = modifier((titleElement, [mobileView]) => {
     if (!mobileView) {
@@ -73,9 +110,31 @@ export default class TrustLevelTitle extends Component {
   <template>
     {{yield}}
 
-    {{#if (and this.enabled this.title)}}
+    <span
+      class="trust-level-title-controller"
+      aria-hidden="true"
+      {{this.decorateNativeTitles}}
+    ></span>
+
+    {{#if (and this.nativeTitleEnabled this.title)}}
       <span
-        class="trust-level-title-on-post trust-level-title-on-post--tl{{this.level}}"
+        class="user-title trust-level-title-on-post trust-level-title-on-post--native trust-level-title-on-post--tl{{this.level}}"
+        title={{this.title}}
+        {{this.mobileUserRow this.site.mobileView}}
+      >
+        {{#if this.badge}}
+          <img
+            class="trust-level-title-on-post__icon"
+            src={{this.badge}}
+            alt=""
+          />
+        {{/if}}
+        <span class="trust-level-title-on-post__text">{{this.title}}</span>
+      </span>
+    {{else if (and this.customTitleEnabled this.title)}}
+      <span
+        class="trust-level-title-on-post trust-level-title-on-post--custom trust-level-title-on-post--tl{{this.level}}"
+        title={{this.title}}
         {{this.mobileUserRow this.site.mobileView}}
       >
         {{#if this.badge}}

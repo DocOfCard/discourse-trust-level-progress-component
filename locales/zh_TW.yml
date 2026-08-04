@@ -2,6 +2,8 @@ zh_TW:
   theme_metadata:
     settings:
       show_title_on_posts: "在文章作者旁顯示信任等級稱號。"
+      show_custom_trust_level_title: "啟用元件自訂等級頭銜；啟用原生等級頭銜時，此項不會重複顯示。"
+      show_native_trust_level_title: "啟用原生樣式的自動等級頭銜；不需使用者手動選擇頭銜，且優先於自訂等級頭銜。"
       show_profile_progress: "在使用者資料頁顯示信任等級進度分頁。"
       trust_level_color_tl0: "TL0 稱號文字顏色。"
       trust_level_color_tl1: "TL1 稱號文字顏色。"

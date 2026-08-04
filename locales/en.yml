@@ -2,6 +2,8 @@ en:
   theme_metadata:
     settings:
       show_title_on_posts: "Show trust-level titles on posts."
+      show_custom_trust_level_title: "Enable the component custom trust-level title. It is suppressed when the native title option is enabled."
+      show_native_trust_level_title: "Enable the automatic native-style trust-level title without requiring users to select it. This option takes priority over the custom title."
       show_profile_progress: "Show the trust-level progress tab on user profiles."
       trust_level_color_tl0: "Text color for TL0 titles."
       trust_level_color_tl1: "Text color for TL1 titles."

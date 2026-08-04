@@ -1,5 +1,9 @@
 show_title_on_posts:
   default: true
+show_custom_trust_level_title:
+  default: false
+show_native_trust_level_title:
+  default: true
 show_profile_progress:
   default: true
 trust_level_color_tl0:
