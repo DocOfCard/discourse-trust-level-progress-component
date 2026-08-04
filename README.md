@@ -1,5 +1,13 @@
 # Discourse Trust Level Progress Component
 
+## v4.1.8 (2026-08-04)
+
+- 修复：移除已不存在的 `discourse/components/d-icon` 导入，改用当前 Discourse 的 `discourse/ui-kit/helpers/d-icon`。
+- 修复：官方头衔徽章使用 GJS 图标 helper 渲染，避免主题整体加载失败。
+- 修复：同步 `about.json` 的 `theme_version` 与 `version` 为 4.1.8。
+
+---
+
 ## v4.1.7 (2026-08-04)
 
 - 修复：仅更新主题组件时，官方原生头衔也会强制移除边框、背景、圆角和阴影。

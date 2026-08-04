@@ -1,6 +1,6 @@
 import Component from "@glimmer/component";
 import { modifier } from "ember-modifier";
-import DIcon from "discourse/components/d-icon";
+import dIcon from "discourse/ui-kit/helpers/d-icon";
 import { i18n } from "discourse-i18n";
 
 const TRUST_LEVEL_KEYS = ["newuser", "basic", "member", "regular", "leader"];
@@ -121,10 +121,10 @@ export default class TrustLevelTitle extends Component {
                 loading="lazy"
               />
             {{else if this.nativeBadge.icon}}
-              <DIcon
-                @icon={{this.nativeBadge.icon}}
+              {{dIcon
+                this.nativeBadge.icon
                 class="trust-level-native-badge__icon"
-              />
+              }}
             {{/if}}
           </span>
         {{/if}}
