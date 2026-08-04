@@ -1,5 +1,15 @@
 # Discourse Trust Level Progress Component
 
+## v4.1.6 (2026-08-04)
+
+- 配合 API v2.1.9 显示官方当前选择的单个头衔徽章图片或图标。
+- 官方头衔选择、保存和单选限制仍完全使用 Discourse 原生逻辑。
+- hover 优先显示长说明，其次显示说明和徽章名称。
+- 扩大原生头衔 DOM 匹配范围，兼容主题在 `.names` 内增加包装层的情况。
+- 强制清除官方头衔的外框、背景、圆角、阴影和额外间距。
+
+---
+
 ## v4.1.5 (2026-08-04)
 
 - 即使未更新配套 API 插件，也会为官方原生头衔添加鼠标悬停名称提示。
@@ -83,6 +93,13 @@ assets/badge-tl4.svg
 Each SVG should have a tightly cropped and consistent `viewBox`.
 
 ## Changelog
+
+### 4.1.6
+
+- Uses complete native selected-badge metadata supplied by API v2.1.9.
+- Preserves Discourse's native single-title selection and storage.
+- Prefers long description, then description, then badge name for hover text.
+- Handles theme wrappers inside `.names` and applies a stronger frame reset.
 
 ### 4.1.5
 

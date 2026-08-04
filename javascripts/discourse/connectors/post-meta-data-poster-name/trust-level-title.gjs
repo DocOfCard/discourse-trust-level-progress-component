@@ -35,8 +35,16 @@ export default class TrustLevelTitle extends Component {
     return settings.show_title_on_posts && this.title;
   }
 
+  get hasNativeBadgeVisual() {
+    return Boolean(this.nativeBadge?.image_url || this.nativeBadge?.icon);
+  }
+
   get nativeBadgeTooltip() {
-    return this.nativeBadge?.description || this.nativeBadge?.name;
+    return (
+      this.nativeBadge?.long_description ||
+      this.nativeBadge?.description ||
+      this.nativeBadge?.name
+    );
   }
 
   enhanceNativeTitle = modifier((element) => {
@@ -45,8 +53,10 @@ export default class TrustLevelTitle extends Component {
       return;
     }
 
-    const nativeTitle = [...names.querySelectorAll(":scope > .user-title")].find(
-      (title) => !title.classList.contains("trust-level-title-on-post")
+    const nativeTitle = [...names.querySelectorAll(".user-title")].find(
+      (title) =>
+        !title.classList.contains("trust-level-title-on-post") &&
+        !title.closest(".trust-level-title-display")
     );
 
     if (!nativeTitle) {
@@ -58,11 +68,17 @@ export default class TrustLevelTitle extends Component {
 
     nativeTitle.classList.add("trust-level-native-title-enhanced");
 
-    if (!previousTitle && fallbackTooltip) {
-      nativeTitle.setAttribute("title", fallbackTooltip);
+    const tooltip = this.nativeBadgeTooltip || fallbackTooltip;
+
+    if (tooltip) {
+      nativeTitle.setAttribute("title", tooltip);
+      nativeTitle.setAttribute(
+        "aria-label",
+        this.nativeBadge?.name || fallbackTooltip
+      );
     }
 
-    if (this.nativeBadge) {
+    if (this.hasNativeBadgeVisual) {
       nativeTitle.classList.add("trust-level-native-title-replaced");
       nativeTitle.setAttribute("aria-hidden", "true");
     }
@@ -73,8 +89,11 @@ export default class TrustLevelTitle extends Component {
         "trust-level-native-title-replaced"
       );
       nativeTitle.removeAttribute("aria-hidden");
+      nativeTitle.removeAttribute("aria-label");
 
-      if (!previousTitle) {
+      if (previousTitle) {
+        nativeTitle.setAttribute("title", previousTitle);
+      } else {
         nativeTitle.removeAttribute("title");
       }
     };
@@ -88,7 +107,7 @@ export default class TrustLevelTitle extends Component {
         class="trust-level-title-display"
         {{this.enhanceNativeTitle}}
       >
-        {{#if this.nativeBadge}}
+        {{#if this.hasNativeBadgeVisual}}
           <span
             class="trust-level-native-badge"
             title={{this.nativeBadgeTooltip}}
