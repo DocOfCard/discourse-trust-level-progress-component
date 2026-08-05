@@ -27,6 +27,11 @@ export default class TrustLevelTitle extends Component {
     return settings.theme_uploads?.[`badge_tl${this.level}`];
   }
 
+  get levelDescription() {
+    const description = settings[`trust_level_description_tl${this.level}`];
+    return description?.trim() || this.title;
+  }
+
   get nativeBadge() {
     return this.post?.title_badge || null;
   }
@@ -132,7 +137,7 @@ export default class TrustLevelTitle extends Component {
 
         <span
           class="trust-level-title-on-post trust-level-title-on-post--tl{{this.level}}"
-          title={{this.title}}
+          title={{this.levelDescription}}
         >
           {{#if this.levelBadge}}
             <img
