@@ -1,0 +1,77 @@
+show_title_on_posts:
+  default: true
+show_profile_progress:
+  default: true
+trust_level_color_tl0:
+  default: "#7C9C7C"
+trust_level_description_tl0:
+  default: "你已踏上命运之路，故事自此开始书写。"
+  type: string
+trust_level_color_tl1:
+  default: "#6E8FBE"
+trust_level_description_tl1:
+  default: "你的活跃与贡献已被众人看见，荣耀开始汇聚于你身旁。"
+  type: string
+trust_level_color_tl2:
+  default: "#8C7AB2"
+trust_level_description_tl2:
+  default: "你的名字与足迹已融入社区历史，成为值得铭记的一部分。"
+  type: string
+trust_level_color_tl3:
+  default: "#A68B49"
+trust_level_description_tl3:
+  default: "你已成为社区中不可忽视的力量，承载着秩序、责任与众人的信任。"
+  type: string
+trust_level_color_tl4:
+  default: "#B87474"
+trust_level_description_tl4:
+  default: "你以卓越贡献书写社区史诗，所留下的影响将长久延续。"
+  type: string
+
+show_zero_score_rules:
+  default: false
+gamification_like_received_score:
+  default: 1
+  type: integer
+gamification_like_given_score:
+  default: 0
+  type: integer
+gamification_solution_score:
+  default: 10
+  type: integer
+gamification_user_invited_score:
+  default: 0
+  type: integer
+gamification_time_read_score:
+  default: 1
+  type: integer
+gamification_post_read_score:
+  default: 1
+  type: integer
+gamification_topic_created_score:
+  default: 5
+  type: integer
+gamification_post_created_score:
+  default: 2
+  type: integer
+gamification_flag_created_score:
+  default: 10
+  type: integer
+gamification_day_visited_score:
+  default: 1
+  type: integer
+gamification_reaction_received_score:
+  default: 1
+  type: integer
+gamification_reaction_given_score:
+  default: 0
+  type: integer
+gamification_chat_reaction_received_score:
+  default: 0
+  type: integer
+gamification_chat_reaction_given_score:
+  default: 0
+  type: integer
+gamification_chat_message_created_score:
+  default: 0
+  type: integer

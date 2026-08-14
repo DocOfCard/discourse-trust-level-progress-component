@@ -1,0 +1,251 @@
+# Discourse Trust Level Progress Component
+
+## v4.2.0 (2026-08-04)
+
+- 新增 TL0–TL4 称号悬停描述设置，并与对应等级的称号文字颜色设置相邻排列。
+- 鼠标悬停固定等级徽章时优先显示后台自定义描述。
+- 描述留空时自动回退显示对应等级称号名称。
+- 不依赖 API 插件，仅更新主题组件即可生效。
+
+---
+
+## v4.1.9 (2026-08-04)
+
+- 保留 Discourse 官方只能选择一个徽章作为头衔的设置与保存逻辑。
+- 只安装组件时，也直接为官方 `.user-title` 去除外框、背景、圆角和阴影，并使用现有头衔文字提供 hover 提示。
+- 安装配套 API v2.2.0 后，将官方头衔文字替换为后台已有的自定义图片或图标，并使用徽章说明或名称作为 hover。
+- 固定等级徽章继续由组件自动显示在官方头衔徽章之后，显示等级图标和等级名称。
+- 不新增徽章选择页面、不新增用户字段、不改变官方单头衔限制。
+
+---
+
+## v4.1.8 (2026-08-04)
+
+- 修复：移除已不存在的 `discourse/components/d-icon` 导入，改用当前 Discourse 的 `discourse/ui-kit/helpers/d-icon`。
+- 修复：官方头衔徽章使用 GJS 图标 helper 渲染，避免主题整体加载失败。
+- 修复：同步 `about.json` 的 `theme_version` 与 `version` 为 4.1.8。
+
+---
+
+## v4.1.7 (2026-08-04)
+
+- 修复：仅更新主题组件时，官方原生头衔也会强制移除边框、背景、圆角和阴影。
+- 修复：恢复 v4.1.1 的原生头衔悬停提示逻辑，直接使用现有头衔文字，不再依赖 API 插件。
+- 兼容：动态加载帖子、用户卡片和个人资料页中的原生头衔。
+
+---
+
+## v4.1.6 (2026-08-04)
+
+- 配合 API v2.1.9 显示官方当前选择的单个头衔徽章图片或图标。
+- 官方头衔选择、保存和单选限制仍完全使用 Discourse 原生逻辑。
+- hover 优先显示长说明，其次显示说明和徽章名称。
+- 扩大原生头衔 DOM 匹配范围，兼容主题在 `.names` 内增加包装层的情况。
+- 强制清除官方头衔的外框、背景、圆角、阴影和额外间距。
+
+---
+
+## v4.1.5 (2026-08-04)
+
+- 即使未更新配套 API 插件，也会为官方原生头衔添加鼠标悬停名称提示。
+- 即使未更新配套 API 插件，也会强制移除官方头衔的边框、背景、圆角和阴影。
+- 配套 API 插件仍只负责提供官方徽章的后台图标或自定义图片数据；有该数据时继续以图片/图标替换头衔文字。
+- 修正 `about.json` 中版本字段不一致的问题。
+
+---
+
+## v4.1.4 (2026-08-04)
+
+- 保留 Discourse 官方仅选择一个徽章作为头衔的设置与流程。
+- 官方已选头衔徽章在帖子中改为只显示后台现有图标或自定义图片。
+- 鼠标悬停官方徽章时显示名称或说明。
+- 固定等级徽章紧接在官方头衔徽章之后，显示等级图标和等级名称。
+- 删除伪原生模式开关与组件自建移动端排列，恢复跟随 Discourse 原生用户名区域布局。
+
+---
+
+
+Version 4.1.3
+
+This theme component:
+
+- adds a **Trust Level** tab after **Badges** on the signed-in user's profile;
+- displays official TL1, TL2, and TL3 progress from the companion API plugin;
+- shows the poster's trust-level name through the `post-meta-data-poster-name` connector;
+- uses the supplied TL0-TL4 SVG assets as the title icon.
+
+## Post title implementation
+
+Post trust-level titles are rendered by:
+
+```text
+javascripts/discourse/connectors/post-meta-data-poster-name/trust-level-title.gjs
+```
+
+Desktop keeps Discourse's normal poster-name DOM. On mobile, the component creates a minimal temporary wrapper around the username and trust-level title so they wrap as one unit. The wrapper is removed automatically when switching back to desktop.
+
+## Stylesheet structure
+
+Styles follow Discourse theme-component conventions:
+
+```text
+common/common.scss
+ desktop/desktop.scss
+ mobile/mobile.scss
+```
+
+- `common/common.scss` contains shared post-title and profile-progress styles.
+- `desktop/desktop.scss` places the trust-level and achievement cards side by side and allows the value column to wrap.
+- `mobile/mobile.scss` contains the compact progress layout and the mobile username/title wrapping rules.
+
+## JavaScript structure
+
+The JavaScript/GJS files remain separated because each file has a distinct Discourse or Ember responsibility:
+
+```text
+javascripts/discourse/components/                 Progress UI and data loading
+javascripts/discourse/connectors/                 Post title and profile navigation outlets
+javascripts/discourse/initializers/                Tracked post property registration
+javascripts/discourse/routes/                      User profile route model
+javascripts/discourse/templates/                   User profile route template
+javascripts/discourse/trust-level-route-map.js     Route declaration
+```
+
+No compatibility layer, polling loop, MutationObserver, or duplicate legacy implementation is included.
+
+## Badge assets
+
+Replace these files with your own SVGs while keeping the names unchanged:
+
+```text
+assets/badge-tl0.svg
+assets/badge-tl1.svg
+assets/badge-tl2.svg
+assets/badge-tl3.svg
+assets/badge-tl4.svg
+```
+
+Each SVG should have a tightly cropped and consistent `viewBox`.
+
+## Changelog
+
+### 4.1.6
+
+- Uses complete native selected-badge metadata supplied by API v2.1.9.
+- Preserves Discourse's native single-title selection and storage.
+- Prefers long description, then description, then badge name for hover text.
+- Handles theme wrappers inside `.names` and applies a stronger frame reset.
+
+### 4.1.5
+
+- Native title hover and frame removal now work without the companion API plugin.
+- The existing native title text is used as a fallback tooltip.
+- Badge image/icon replacement still activates when the API plugin supplies badge metadata.
+- Synchronized both version fields in `about.json`.
+
+### 4.1.3
+
+- Reduced the native-style automatic trust-level title size by approximately 1px for better visual balance beside the poster name.
+- Increased color rule priority and applied the configured TL0-TL4 color directly to both the native title wrapper and text, preventing installed themes from overriding it.
+- Preserved the complete existing changelog.
+
+### 4.1.2
+
+- Native-style automatic trust-level titles now use the configured TL0-TL4 text colors even when Discourse native title styles would otherwise override them.
+- Native-style automatic trust-level title text now uses the same font size as the poster name.
+- Preserved the complete existing changelog.
+
+### 4.1.1
+
+- Added separate settings for the component custom trust-level title and the native-style automatic trust-level title.
+- The native-style title is enabled by default and takes priority when both settings are enabled, preventing duplicates.
+- Native-style automatic trust-level titles keep the TL0-TL4 icon, require no manual user title selection, and render without a frame.
+- Added hover text for generated trust-level titles and existing native titles beside post authors when no tooltip already exists.
+- Preserved the complete existing changelog from v4.0.19 and earlier.
+
+### 4.0.19
+
+- Corrected the poster-name trust-level icon vertical position to match the inline `[tl=x text]` rendering.
+
+### 4.0.18
+
+- Corrected vertical alignment for trust-level titles shown after poster names.
+- Keeps title text on its natural line box and applies visual offset only to the badge icon.
+- Applies the same alignment correction to inline `[tl=0 text]` through `[tl=4 text]` badges in cooked post content.
+
+### 4.0.15
+
+- Removed all failed `/u/trust-level` alias workarounds from the component.
+- Keeps only the normal `/u/:username/trust-level` user subroute.
+- Uses Discourse's built-in `/my/trust-level` current-user alias; no custom redirect code is included.
+
+### 4.0.0
+
+- Reorganized SCSS into the official `common`, `desktop`, and `mobile` theme folders.
+- Kept all existing post-title, mobile layout, profile navigation, progress API, localization, settings, and SVG behavior unchanged.
+- Documented why the separate JavaScript/GJS files are required by their Discourse and Ember responsibilities.
+- Preserved the project description, author, repository, license, compatibility, settings, and asset metadata in `about.json`.
+
+### 3.2.6
+
+- Updated documentation to match the current connector and mobile wrapper implementation.
+- Corrected the English TL4 color description.
+- Removed redundant SVG size constraints without changing the rendered size.
+
+### 3.2.5
+
+- Further softened the default TL0-TL4 title colors.
+- Kept the post title font weight at 500.
+
+### 3.2.4
+
+- Re-applies the mobile username/title wrapper whenever Discourse switches between desktop and mobile layouts without a page reload.
+- Restores the original DOM automatically when switching back to desktop.
+- Uses the reactive `site.mobileView` service through an Ember modifier; no polling or MutationObserver.
+- Softened default trust-level colors to reduce visual dominance.
+- Reduced post trust-level title weight from 600 to 500.
+
+### 3.2.2
+
+- Keeps usernames and badge icons visible on mobile when horizontal space is limited.
+- Clips only the trust-level title text instead of wrapping it onto another line or covering post metadata.
+- Applies the same clipping behavior when only one user name is displayed.
+
+### 3.2.1
+
+- Added theme-component color settings for TL0-TL4 post titles.
+- Fixed mobile ordering when a post shows only one user name, keeping the trust-level title after the user name on the same line.
+
+
+## v4.0.2
+
+- Separates Gamification data from the Trust Level card.
+- Adds editable theme settings for Gamification scoring rules.
+- Displays all configured scoring rules directly on the profile page.
+
+
+## 4.0.3
+
+- Moved trust-level promotion requirements into the trust-level summary card.
+- Added `show_zero_score_rules` (default off) to hide zero-value Gamification rules while preserving the configured rule order.
+
+
+## 帖子内引用信任等级图标
+
+在帖子正文中可直接使用：
+
+```text
+[tl=0]
+[tl=1]
+[tl=2]
+[tl=3]
+[tl=4]
+```
+
+以上语法只显示对应等级的 SVG 图标。需要同时显示当前站点语言中的信任等级名称时，使用：
+
+```text
+[tl=3 text]
+```
+
+代码块、行内代码和链接中的相同文本不会被转换。

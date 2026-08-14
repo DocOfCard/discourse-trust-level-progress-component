@@ -1,0 +1,56 @@
+// Keep the trust-level and achievement cards side by side on desktop.
+.trust-level-progress.has-gamification {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(18rem, 3fr);
+  align-items: start;
+  gap: 1rem;
+}
+
+.trust-level-progress.has-gamification .trust-level-progress__gamification {
+  margin-top: 0;
+}
+
+// Give the value column a useful share of the available desktop width.
+// It may still wrap when the card becomes narrow, but it is no longer held
+// near its minimum width while space is available.
+.trust-level-progress__table {
+  tbody th:first-child {
+    width: 44%;
+  }
+
+  th:nth-child(3),
+  td:nth-child(3) {
+    width: 30%;
+    min-width: 7rem;
+    white-space: normal;
+    overflow-wrap: normal;
+    word-break: normal;
+  }
+
+  th:nth-child(4),
+  td:nth-child(4) {
+    width: 20%;
+  }
+}
+
+// In the narrow right-hand card, keep the heading above two equal-width stats.
+.trust-level-progress__gamification-header {
+  display: block;
+}
+
+.trust-level-progress__gamification-stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.65rem;
+  margin-top: 0.9rem;
+}
+
+.trust-level-progress__gamification-stat {
+  min-width: 0;
+  text-align: center;
+}
+
+// The narrower achievement card reads better as a single-column rule list.
+.trust-level-progress__rules-grid {
+  grid-template-columns: minmax(0, 1fr);
+}
